@@ -1,6 +1,7 @@
 import { green, purple } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const theme = createMuiTheme({
@@ -18,6 +19,12 @@ const theme = createMuiTheme({
 	},
 });
 
-export default function Theme({ children }) {
+const Theme = ({ children }) => {
 	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-}
+};
+
+Theme.propTypes = {
+	children: PropTypes.element.isRequired,
+};
+
+export default Theme;
