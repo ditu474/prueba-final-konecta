@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/prueba-final-konecta/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/prueba-final-konecta/static/js/main.bcabdb75.chunk.js",
+    "main.js.map": "/prueba-final-konecta/static/js/main.bcabdb75.chunk.js.map",
+    "runtime-main.js": "/prueba-final-konecta/static/js/runtime-main.27a8f57a.js",
+    "runtime-main.js.map": "/prueba-final-konecta/static/js/runtime-main.27a8f57a.js.map",
+    "static/js/2.ea8e551a.chunk.js": "/prueba-final-konecta/static/js/2.ea8e551a.chunk.js",
+    "static/js/2.ea8e551a.chunk.js.map": "/prueba-final-konecta/static/js/2.ea8e551a.chunk.js.map",
+    "static/js/3.0c9a4c9d.chunk.js": "/prueba-final-konecta/static/js/3.0c9a4c9d.chunk.js",
+    "static/js/3.0c9a4c9d.chunk.js.map": "/prueba-final-konecta/static/js/3.0c9a4c9d.chunk.js.map",
+    "index.html": "/prueba-final-konecta/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/prueba-final-konecta/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.ea8e551a.chunk.js.LICENSE.txt": "/prueba-final-konecta/static/js/2.ea8e551a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27a8f57a.js",
+    "static/js/2.ea8e551a.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.bcabdb75.chunk.js"
+  ]
+}
