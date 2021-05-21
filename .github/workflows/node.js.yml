@@ -47,6 +47,7 @@ jobs:
         run: npm run build
 
       - name: Deploy
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         run: |
           git config --global user.name $user_name
           git config --global user.email $user_email
