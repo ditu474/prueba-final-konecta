@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Practica Final Konecta
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![CI/CD](https://github.com/ditu474/prueba-final-konecta/workflows/Practica%20Final%20Konecta/badge.svg)
+[![codecov](https://codecov.io/gh/ditu474/prueba-final-konecta/branch/master/graph/badge.svg)](https://codecov.io/gh/ditu474/prueba-final-konecta)
 
 ## Available Scripts
 
