@@ -9,12 +9,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
+          node-version: ${{ matrix.node-version }}
+
       - name: Cache Node.js modules
         uses: actions/cache@v2
         with:
@@ -23,9 +31,17 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
+
       - name: Install dependencies
         run: npm install
-      - name: Test App
-        run: npm test
-      - name: Build App
+
+      - name: Run the tests and generate coverage report
+        run: npm test -- --watchAll=false --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Build
         run: npm run build
