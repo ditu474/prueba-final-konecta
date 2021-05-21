@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import "scss/variables";
+
+*,
+*::after,
+**::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1500px;
+}
+
+.active-route {
+  border-bottom: 2px solid white;
+}

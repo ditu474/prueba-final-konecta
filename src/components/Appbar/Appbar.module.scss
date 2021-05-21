@@ -1,0 +1,21 @@
+@import "scss/variables";
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+        list-style: none;
+    }
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding-bottom: 5px;
+
+    &:hover {
+        color: black;
+    }
+}
