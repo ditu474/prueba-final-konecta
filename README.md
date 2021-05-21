@@ -1,7 +1,7 @@
 # Practica Final Konecta
 
 ![CI/CD](https://github.com/ditu474/prueba-final-konecta/workflows/Practica%20Final%20Konecta/badge.svg)
-[![codecov](https://codecov.io/gh/ditu474/prueba-final-konecta/branch/master/graph/badge.svg)](https://codecov.io/gh/ditu474/prueba-final-konecta)
+[![codecov](https://codecov.io/gh/ditu474/prueba-final-konecta/branch/main/graph/badge.svg?token=SJE1V7V2O2)](https://codecov.io/gh/ditu474/prueba-final-konecta)
 
 ## Available Scripts
 
