@@ -2,7 +2,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import breakingBadLogo from 'assets/Breaking_Bad_logo.png';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Appbar.module.scss';
 
 export default function Appbar() {
@@ -10,11 +10,19 @@ export default function Appbar() {
 		<AppBar position="static">
 			<div className="container">
 				<Toolbar className={styles.toolbar}>
-					<img src={breakingBadLogo} alt="Logo breaking bad" />
+					<NavLink to="/">
+						<img src={breakingBadLogo} alt="Logo breaking bad" />
+					</NavLink>
 					<nav>
 						<ul>
 							<li>
-								<Link to="/bookstores">Mis librerías</Link>
+								<NavLink
+									to="/bookstores"
+									activeClassName="active-route"
+									className={styles['nav-link']}
+								>
+									Mis librerías
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
