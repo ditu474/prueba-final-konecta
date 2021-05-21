@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders Test', () => {
-	render(<App />);
-	const linkElement = screen.getByText(/Test/i);
-	expect(linkElement).toBeInTheDocument();
+describe('App Component', () => {
+	test('renders appbar', () => {
+		render(<App />);
+		const appbar = screen.getByRole('navigation');
+		expect(appbar).toBeInTheDocument();
+	});
 });
