@@ -78,4 +78,14 @@ describe('Bookstore Service', () => {
 			JSON.stringify(bookstores)
 		);
 	});
+
+	test('saveBookstores return error if save locally throws', () => {
+		Storage.prototype.setItem = jest.fn(() => {
+			throw new Error('any error');
+		});
+
+		const error = saveBookstores('any bookstores');
+
+		expect(error).toBe('failed to save locally');
+	});
 });
