@@ -161,6 +161,39 @@ describe('Bookstore Provider', () => {
 		});
 	});
 
+	test('should not update state if add a new bookstore fails', () => {
+		jest
+			.spyOn(bookstoreService, 'saveBookstores')
+			.mockReturnValue(() => 'Error');
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: Math.random(),
+				name: 'Mis Favoritos',
+				quotes: [
+					{
+						id: Math.random(),
+						quote: 'quote 1',
+					},
+				],
+			},
+		]);
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByText('Add Bookstore'));
+		});
+
+		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
+		expect(screen.queryAllByTestId('quote').length).toBe(1);
+	});
+
 	//TODO: TEST SNACKBAR AL AÑADIR Y AL FALLAR EL AÑADIR
 	//TODO: TEST CUANDO FALLE EL AÑADIR
 });
