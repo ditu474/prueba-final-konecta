@@ -72,7 +72,7 @@ describe('Snackbar Provider', () => {
 		});
 	});
 
-	test('snackbar should disappear if Dismiss is clicked', async () => {
+	test('snackbar should disappear if close snackbar icon is clicked', async () => {
 		render(
 			<SnackbarProvider>
 				<TestComponent />
@@ -83,7 +83,7 @@ describe('Snackbar Provider', () => {
 			fireEvent.click(screen.getByText('Open Snackbar'));
 		});
 
-		fireEvent.click(screen.getByText('Dismiss'));
+		fireEvent.click(screen.getByLabelText('close snackbar'));
 
 		await waitFor(() => {
 			expect(screen.queryByText('Snackbar 1')).not.toBeInTheDocument();
