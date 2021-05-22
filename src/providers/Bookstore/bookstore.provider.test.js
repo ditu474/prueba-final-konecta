@@ -138,6 +138,7 @@ describe('Bookstore Provider', () => {
 			]);
 			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 			expect(screen.getByText(newBookstoreName)).toBeInTheDocument();
+			expect(screen.getByText(`Se creó la librería ${newBookstoreName}`)).toBeInTheDocument();
 		});
 	});
 

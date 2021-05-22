@@ -29,15 +29,19 @@ const BookstoreProvider = ({ children }) => {
 			enqueueSnackbar(`Ya existe una librería con el nombre ${name}`, {
 				variant: 'error',
 			});
-		} else {
-			newBookstores.push({ id: Math.random(), name, quotes: [] });
-			const err = updateBookstores(newBookstores);
-			if (err) {
-				enqueueSnackbar(`No se logró guardar la librería ${name}`, {
-					variant: 'error',
-				});
-			}
+			return;
 		}
+		newBookstores.push({ id: Math.random(), name, quotes: [] });
+		const err = updateBookstores(newBookstores);
+		if (err) {
+			enqueueSnackbar(`No se logró guardar la librería ${name}`, {
+				variant: 'error',
+			});
+			return;
+		}
+		enqueueSnackbar(`Se creó la librería ${name}`, {
+			variant: 'success',
+		});
 	};
 
 	const addQuote = (quote, bookstoreId) => {
