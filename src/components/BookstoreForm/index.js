@@ -29,9 +29,10 @@ const BookstoreForm = ({ onAddBookstore }) => {
 		return errors;
 	};
 
-	const submitHandler = (values, { setSubmitting }) => {
+	const submitHandler = (values, { setSubmitting, resetForm }) => {
 		onAddBookstore(values.name);
 		setSubmitting(false);
+		resetForm(initialValues);
 	};
 
 	return (
