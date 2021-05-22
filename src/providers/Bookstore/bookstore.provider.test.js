@@ -465,5 +465,44 @@ describe('Bookstore Provider', () => {
 		).toBeInTheDocument();
 	});
 
-	//TODO: TEST FAILED CASES
+	test('delete a quote from a bookstore', () => {
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 9,
+				name: 'Any',
+				quotes: [
+					{
+						id: 1,
+						quote: 'quote 1',
+					},
+					{
+						id: 2,
+						quote: 'quote 2',
+					},
+				],
+			},
+		]);
+
+		const onDeleteQuoteHandler = (func) => {
+			func(1, 9);
+		};
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onDeleteQuote={onDeleteQuoteHandler} />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('deleteQuote'));
+		});
+
+		expect(screen.queryAllByTestId('quote').length).toBe(1);
+		expect(screen.queryByText('quote 1')).not.toBeInTheDocument();
+		expect(screen.getByText('Se ha eliminado la frase')).toBeInTheDocument();
+	});
+
+	//TODO: TEST FAILED CASES FOR MOVE QUOTE AND DELETE BOOKSTORE AND DELETE QUOTE
 });
