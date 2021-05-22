@@ -1,9 +1,19 @@
 import BookstoreForm from 'components/BookstoreForm';
+import Bookstores from 'components/Bookstores';
 import bookStoreContext from 'context/bookstore';
 import React from 'react';
 
 export default function Bookstore() {
-	const bookstoreCtx = React.useContext(bookStoreContext);
+	const { addBookstore, bookstores } = React.useContext(bookStoreContext);
 
-	return <BookstoreForm onAddBookstore={bookstoreCtx.addBookstore} />;
+	const newBookstoreHandler = (name) => {
+		addBookstore(name);
+	};
+
+	return (
+		<>
+			<BookstoreForm onAddBookstore={newBookstoreHandler} />
+			<Bookstores bookstores={bookstores} />
+		</>
+	);
 }
