@@ -111,4 +111,23 @@ describe('Bookstore Page', () => {
 		expect(screen.queryAllByLabelText('Move Quote').length).toBe(2);
 		expect(screen.queryAllByLabelText('Delete Quote').length).toBe(2);
 	});
+
+	test('call deleteBookstore from provider with correct values', () => {
+		const deleteBookstoreSpy = jest.fn();
+		render(
+			<BookstoreCtx.Provider
+				value={{
+					bookstores: [{ id: 3, name: 'Library Test', quotes: [] }],
+					deleteBookstore: deleteBookstoreSpy,
+				}}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		fireEvent.click(screen.getByLabelText('Delete bookstore'));
+
+		expect(deleteBookstoreSpy).toHaveBeenCalledTimes(1);
+		expect(deleteBookstoreSpy).toHaveBeenCalledWith(3);
+	});
 });
