@@ -72,7 +72,7 @@ describe('Snackbar Provider', () => {
 		});
 	});
 
-	test('snackbar should dissapear if Dismiss is clicked', async () => {
+	test('snackbar should disappear if Dismiss is clicked', async () => {
 		render(
 			<SnackbarProvider>
 				<TestComponent />

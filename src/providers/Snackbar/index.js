@@ -1,20 +1,26 @@
 import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
 import { SnackbarProvider } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 const CustomSnackbarProvider = ({ children }) => {
-	const snackbarRef = React.createRef();
+	const notistackRef = React.createRef();
 
 	const onClickDismiss = (key) => () => {
-		snackbarRef.current.closeSnackbar(key);
+		notistackRef.current.closeSnackbar(key);
 	};
 
 	return (
 		<SnackbarProvider
 			maxSnack={3}
-			ref={snackbarRef}
+			ref={notistackRef}
 			action={(key) => <Button onClick={onClickDismiss(key)}>Dismiss</Button>}
+			anchorOrigin={{
+				vertical: 'bottom',
+				horizontal: 'left',
+			}}
+			TransitionComponent={Slide}
 		>
 			{children}
 		</SnackbarProvider>
