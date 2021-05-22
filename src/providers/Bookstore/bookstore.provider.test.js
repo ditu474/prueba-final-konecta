@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils';
 import * as bookstoreService from 'services/bookstore';
 import BookstoreProvider from '.';
 
-const TestComponent = () => {
+const TestComponent = ({ onAddBookstore, onAddQuote, onMoveQuote }) => {
 	const { bookstores, addBookstore, addQuote, moveQuote } =
 		React.useContext(BookstoreContext);
 	return (
@@ -27,14 +27,14 @@ const TestComponent = () => {
 			</ul>
 			<button
 				data-testid="addBookstore"
-				onClick={() => addBookstore('New Bookstore')}
+				onClick={() => onAddBookstore(addBookstore)}
 			>
 				Add Bookstore
 			</button>
-			<button data-testid="addQuote" onClick={addQuote}>
+			<button data-testid="addQuote" onClick={() => onAddQuote(addQuote)}>
 				Add Quote
 			</button>
-			<button data-testid="moveQuote" onClick={moveQuote}>
+			<button data-testid="moveQuote" onClick={() => onMoveQuote(moveQuote)}>
 				Move Quote
 			</button>
 		</>
@@ -114,11 +114,15 @@ describe('Bookstore Provider', () => {
 	test('add a new bookstore', async () => {
 		const mockSaveBookstores = jest.spyOn(bookstoreService, 'saveBookstores');
 		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([]);
+		const newBookstoreName = 'Test New Bookstore';
+		const addBookstore = (func) => {
+			func(newBookstoreName);
+		};
 
 		render(
 			<SnackbarProvider>
 				<BookstoreProvider>
-					<TestComponent />
+					<TestComponent onAddBookstore={addBookstore} />
 				</BookstoreProvider>
 			</SnackbarProvider>
 		);
@@ -130,10 +134,10 @@ describe('Bookstore Provider', () => {
 		await waitFor(() => {
 			expect(mockSaveBookstores).toBeCalledTimes(1);
 			expect(mockSaveBookstores).toHaveBeenCalledWith([
-				{ id: expect.any(Number), name: 'New Bookstore' },
+				{ id: expect.any(Number), name: newBookstoreName },
 			]);
 			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
-			expect(screen.getByText('New Bookstore')).toBeInTheDocument();
+			expect(screen.getByText(newBookstoreName)).toBeInTheDocument();
 		});
 	});
 
@@ -141,11 +145,15 @@ describe('Bookstore Provider', () => {
 		jest
 			.spyOn(bookstoreService, 'saveBookstores')
 			.mockReturnValue(() => 'Error');
+		const newBookstoreName = 'The bests';
+		const addBookstore = (func) => {
+			func(newBookstoreName);
+		};
 
 		render(
 			<SnackbarProvider>
 				<BookstoreProvider>
-					<TestComponent />
+					<TestComponent onAddBookstore={addBookstore} />
 				</BookstoreProvider>
 			</SnackbarProvider>
 		);
@@ -156,7 +164,7 @@ describe('Bookstore Provider', () => {
 
 		await waitFor(() => {
 			expect(
-				screen.getByText('No se logró guardar la librería New Bookstore')
+				screen.getByText(`No se logró guardar la librería ${newBookstoreName}`)
 			).toBeInTheDocument();
 		});
 	});
@@ -177,11 +185,14 @@ describe('Bookstore Provider', () => {
 				],
 			},
 		]);
+		const addBookstore = (func) => {
+			func('Any');
+		};
 
 		render(
 			<SnackbarProvider>
 				<BookstoreProvider>
-					<TestComponent />
+					<TestComponent onAddBookstore={addBookstore} />
 				</BookstoreProvider>
 			</SnackbarProvider>
 		);
@@ -190,6 +201,7 @@ describe('Bookstore Provider', () => {
 			fireEvent.click(screen.getByText('Add Bookstore'));
 		});
 
+		expect(screen.queryByText('Any')).not.toBeInTheDocument();
 		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 		expect(screen.queryAllByTestId('quote').length).toBe(1);
 	});
