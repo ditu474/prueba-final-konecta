@@ -130,4 +130,29 @@ describe('Bookstore Page', () => {
 		expect(deleteBookstoreSpy).toHaveBeenCalledTimes(1);
 		expect(deleteBookstoreSpy).toHaveBeenCalledWith(3);
 	});
+
+	test('call deleteQuote from provider with correct values', () => {
+		const deleteQuoteSpy = jest.fn();
+		render(
+			<BookstoreCtx.Provider
+				value={{
+					bookstores: [
+						{
+							id: 3,
+							name: 'Library Test',
+							quotes: [{ id: 10, quote: 'Test Quote 1' }],
+						},
+					],
+					deleteQuote: deleteQuoteSpy,
+				}}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		fireEvent.click(screen.getByLabelText('Delete Quote'));
+
+		expect(deleteQuoteSpy).toHaveBeenCalledTimes(1);
+		expect(deleteQuoteSpy).toHaveBeenCalledWith(10, 3);
+	});
 });
