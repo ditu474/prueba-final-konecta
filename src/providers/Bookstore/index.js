@@ -13,15 +13,22 @@ const BookstoreProvider = ({ children }) => {
 		setBookstores(savedBookstores);
 	}, []);
 
+	const updateBookstores = (newBookstores) => {
+		const err = saveBookstores(newBookstores);
+		if (err) {
+			return err;
+		} else {
+			setBookstores(newBookstores);
+		}
+	};
+
 	const addBookstore = (name) => {
 		const newBookstores = [...bookstores, { id: Math.random(), name }];
-		const err = saveBookstores(newBookstores);
+		const err = updateBookstores(newBookstores);
 		if (err) {
 			enqueueSnackbar(`No se logró guardar la librería ${name}`, {
 				variant: 'error',
 			});
-		} else {
-			setBookstores(newBookstores);
 		}
 	};
 

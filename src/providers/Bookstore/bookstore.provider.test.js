@@ -193,7 +193,4 @@ describe('Bookstore Provider', () => {
 		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 		expect(screen.queryAllByTestId('quote').length).toBe(1);
 	});
-
-	//TODO: TEST SNACKBAR AL AÑADIR Y AL FALLAR EL AÑADIR
-	//TODO: TEST CUANDO FALLE EL AÑADIR
 });
