@@ -14,6 +14,11 @@ const MenuButton = ({ children, elements }) => {
 		setAnchorEl(null);
 	};
 
+	const handleItemClick = (func) => () => {
+		func();
+		handleClose();
+	};
+
 	return (
 		<>
 			<div onClick={handleClick}>{children}</div>
@@ -24,7 +29,10 @@ const MenuButton = ({ children, elements }) => {
 				onClose={handleClose}
 			>
 				{elements.map((element) => (
-					<MenuItem key={element.value} onClick={handleClose}>
+					<MenuItem
+						key={element.name}
+						onClick={handleItemClick(element.action)}
+					>
 						{element.name}
 					</MenuItem>
 				))}
