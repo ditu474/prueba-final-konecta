@@ -342,4 +342,51 @@ describe('Bookstore Provider', () => {
 			screen.getByText('No se logró guardar la frase')
 		).toBeInTheDocument();
 	});
+
+	test('move quote to another library', () => {
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 10,
+				name: 'Favoritos',
+				quotes: [],
+			},
+			{
+				id: 9,
+				name: 'Any',
+				quotes:[
+					{
+						id: 1,
+						quote: 'quote 1',
+					},
+					{
+						id: 2,
+						quote: 'quote 2',
+					},
+				],
+			}
+		]);
+
+		const onMoveQuote = (func) => {
+			func(1, 9, 10) 
+		}
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onMoveQuote={onMoveQuote}/>
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('moveQuote'));
+		})
+
+		expect(screen.queryByText('Favoritos').children.item(0).children.item(0).textContent).toBe(
+			'quote 1'
+		);
+		expect(screen.queryByText('Any').children.item(0).children.item(0).textContent).toBe(
+			'quote 2'
+		);
+	})
 });
