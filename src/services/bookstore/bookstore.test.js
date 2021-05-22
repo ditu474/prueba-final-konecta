@@ -42,4 +42,12 @@ describe('Bookstore Service', () => {
 		expect(getItemMock).toHaveBeenCalledWith('bookstores');
 		expect(response).toEqual(returnValue);
 	});
+
+	test('return an empty array there is no bookstores', () => {
+		Storage.prototype.getItem = jest.fn(() => null);
+
+		const response = getSavedBookstores();
+
+		expect(response).toEqual([]);
+	});
 });
