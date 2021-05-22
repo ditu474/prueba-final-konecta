@@ -1,7 +1,9 @@
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BookstoreQuotes from 'components/BookstoreQuotes';
 import PropTypes from 'prop-types';
@@ -11,6 +13,13 @@ const useStyles = makeStyles({
 	details: {
 		display: 'flex',
 		flexDirection: 'column',
+	},
+	summary: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		width: '100%',
 	},
 });
 
@@ -22,9 +31,14 @@ const Bookstores = ({ bookstores }) => {
 				<Accordion key={bookstore.id}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
-						aria-label="Abrir librería"
+						aria-label="Open bookstore"
 					>
-						{bookstore.name}
+						<div className={classes.summary}>
+							<h4>{bookstore.name}</h4>
+							<IconButton aria-label="Delete bookstore" color="primary">
+								<DeleteForever />
+							</IconButton>
+						</div>
 					</AccordionSummary>
 					<AccordionDetails className={classes.details}>
 						<BookstoreQuotes quotes={bookstore.quotes} />

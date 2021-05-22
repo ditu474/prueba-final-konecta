@@ -77,7 +77,8 @@ describe('Bookstore Page', () => {
 		);
 
 		expect(screen.getByText('Library Test')).toBeInTheDocument();
-		expect(screen.getByLabelText('Abrir librería')).toBeInTheDocument();
+		expect(screen.getByLabelText('Open bookstore')).toBeInTheDocument();
+		expect(screen.getByLabelText('Delete bookstore')).toBeInTheDocument();
 	});
 
 	test('do not display the library quotes until user opens the library', () => {
