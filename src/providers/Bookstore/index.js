@@ -63,10 +63,22 @@ const BookstoreProvider = ({ children }) => {
 		}
 	};
 
+	const moveQuote = (quoteId, fromId, toId) => {
+		const newBookstores = [...bookstores];
+		const from = newBookstores.find((bookstore) => bookstore.id === fromId);
+		const to = newBookstores.find((bookstore) => bookstore.id === toId);
+		const quoteIndex = from.quotes.findIndex((quote) => quote.id === quoteId);
+		const quote = from.quotes[quoteIndex];
+		from.quotes.splice(quoteIndex, 1);
+		to.quotes.push(quote);
+		updateBookstores(newBookstores);
+	};
+
 	const ctxValue = {
 		bookstores,
 		addBookstore,
 		addQuote,
+		moveQuote,
 	};
 
 	return (
