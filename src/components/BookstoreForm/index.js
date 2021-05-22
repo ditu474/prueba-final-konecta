@@ -30,7 +30,7 @@ const BookstoreForm = ({ onAddBookstore }) => {
 	};
 
 	const submitHandler = (values, { setSubmitting, resetForm }) => {
-		onAddBookstore(values.name);
+		onAddBookstore(values.name.trim());
 		setSubmitting(false);
 		resetForm(initialValues);
 	};

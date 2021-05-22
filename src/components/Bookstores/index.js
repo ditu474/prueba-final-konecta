@@ -2,6 +2,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import BookstoreQuotes from 'components/BookstoreQuotes';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -12,12 +13,13 @@ const Bookstores = ({ bookstores }) => {
 				<Accordion key={bookstore.id}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
-						aria-controls="panel1a-content"
-						id="panel1a-header"
+						aria-label="Abrir librería"
 					>
 						{bookstore.name}
 					</AccordionSummary>
-					<AccordionDetails></AccordionDetails>
+					<AccordionDetails>
+						<BookstoreQuotes quotes={bookstore.quotes} />
+					</AccordionDetails>
 				</Accordion>
 			))}
 		</>
