@@ -23,7 +23,11 @@ const useStyles = makeStyles({
 	},
 });
 
-const Bookstores = ({ bookstores }) => {
+const Bookstores = ({ bookstores, onBookstoreDelete }) => {
+	const deleteBookstoreHandler = (id) => () => {
+		onBookstoreDelete(id);
+	};
+
 	const classes = useStyles();
 	return (
 		<>
@@ -35,7 +39,11 @@ const Bookstores = ({ bookstores }) => {
 					>
 						<div className={classes.summary}>
 							<h4>{bookstore.name}</h4>
-							<IconButton aria-label="Delete bookstore" color="primary">
+							<IconButton
+								aria-label="Delete bookstore"
+								color="primary"
+								onClick={deleteBookstoreHandler(bookstore.id)}
+							>
 								<DeleteForever />
 							</IconButton>
 						</div>
@@ -51,6 +59,7 @@ const Bookstores = ({ bookstores }) => {
 
 Bookstores.propTypes = {
 	bookstores: PropTypes.array.isRequired,
+	onBookstoreDelete: PropTypes.func.isRequired,
 };
 
 export default Bookstores;
