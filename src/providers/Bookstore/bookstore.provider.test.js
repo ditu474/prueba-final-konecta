@@ -237,4 +237,39 @@ describe('Bookstore Provider', () => {
 		expect(screen.getAllByTestId('quote').length).toBe(1);
 		expect(screen.getByText(newQuote.quote)).toBeInTheDocument();
 	});
+
+	test('display snackbar if quote already exist in library', () => {
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 10,
+				name: 'Mis Favoritos',
+				quotes: [],
+			},
+		]);
+		const newQuote = {
+			id: Math.random(),
+			quote: 'This is a test quote',
+		};
+		const addToLibrary = (func) => {
+			func(newQuote, 10);
+		};
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onAddQuote={addToLibrary} />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('addQuote'));
+			fireEvent.click(screen.getByTestId('addQuote'));
+		});
+
+		expect(screen.getAllByTestId('quote').length).toBe(1);
+		expect(
+			screen.getByText('La frase ya existe en la librería')
+		).toBeInTheDocument();
+	});
 });
