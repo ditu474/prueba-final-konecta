@@ -23,7 +23,10 @@ const BookstoreProvider = ({ children }) => {
 	};
 
 	const addBookstore = (name) => {
-		const newBookstores = [...bookstores, { id: Math.random(), name }];
+		const newBookstores = [
+			...bookstores,
+			{ id: Math.random(), name, quotes: [] },
+		];
 		const err = updateBookstores(newBookstores);
 		if (err) {
 			enqueueSnackbar(`No se logró guardar la librería ${name}`, {
@@ -32,9 +35,19 @@ const BookstoreProvider = ({ children }) => {
 		}
 	};
 
+	const addQuote = (quote, bookstoreId) => {
+		const newBookstores = [...bookstores];
+		const bookstore = newBookstores.find(
+			(bookstore) => bookstore.id === bookstoreId
+		);
+		bookstore.quotes.push(quote);
+		updateBookstores(newBookstores);
+	};
+
 	const ctxValue = {
 		bookstores,
 		addBookstore,
+		addQuote,
 	};
 
 	return (
