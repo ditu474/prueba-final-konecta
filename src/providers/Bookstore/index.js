@@ -23,15 +23,20 @@ const BookstoreProvider = ({ children }) => {
 	};
 
 	const addBookstore = (name) => {
-		const newBookstores = [
-			...bookstores,
-			{ id: Math.random(), name, quotes: [] },
-		];
-		const err = updateBookstores(newBookstores);
-		if (err) {
-			enqueueSnackbar(`No se logró guardar la librería ${name}`, {
+		const newBookstores = [...bookstores];
+		const bookstore = newBookstores.find((bs) => bs.name === name);
+		if (bookstore) {
+			enqueueSnackbar(`Ya existe una librería con el nombre ${name}`, {
 				variant: 'error',
 			});
+		} else {
+			newBookstores.push({ id: Math.random(), name, quotes: [] });
+			const err = updateBookstores(newBookstores);
+			if (err) {
+				enqueueSnackbar(`No se logró guardar la librería ${name}`, {
+					variant: 'error',
+				});
+			}
 		}
 	};
 
