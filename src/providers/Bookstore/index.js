@@ -49,7 +49,12 @@ const BookstoreProvider = ({ children }) => {
 			});
 		} else {
 			bookstore.quotes.push(quote);
-			updateBookstores(newBookstores);
+			const err = updateBookstores(newBookstores);
+			if (err) {
+				enqueueSnackbar('No se logró guardar la frase', {
+					variant: 'error',
+				});
+			}
 		}
 	};
 
