@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import BookstoreContext from 'context/bookstore';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import * as bookstoreService from 'services/bookstore';
 import BookstoreProvider from '.';
 
@@ -23,7 +24,10 @@ const TestComponent = () => {
 					</li>
 				))}
 			</ul>
-			<button data-testid="addBookstore" onClick={addBookstore}>
+			<button
+				data-testid="addBookstore"
+				onClick={() => addBookstore('New Bookstore')}
+			>
 				Add Bookstore
 			</button>
 			<button data-testid="addQuote" onClick={addQuote}>
@@ -102,5 +106,29 @@ describe('Bookstore Provider', () => {
 		expect(screen.queryByText('Graciosos')).toBeInTheDocument();
 
 		mockGetSavedBookstores.mockRestore();
+	});
+
+	test('add a new bookstore', () => {
+		const mockSaveBookstores = jest.spyOn(bookstoreService, 'saveBookstores');
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([]);
+
+		render(
+			<BookstoreProvider>
+				<TestComponent />
+			</BookstoreProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByText('Add Bookstore'));
+		});
+
+		expect(mockSaveBookstores).toBeCalledTimes(1);
+		expect(mockSaveBookstores).toHaveBeenCalledWith([
+			{ id: expect.any(Number), name: 'New Bookstore' },
+		]);
+		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
+		expect(screen.getByText('New Bookstore')).toBeInTheDocument();
+
+		mockSaveBookstores.mockRestore();
 	});
 });
