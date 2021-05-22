@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+// TODO: TEST COMPONENT NOT VISIBLE ON TOP OF THE PAGE
+
 export default function ScrollTop() {
 	const classes = useStyles();
 

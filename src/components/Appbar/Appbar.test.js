@@ -64,4 +64,6 @@ describe('Appbar Component', () => {
 
 		expect(testLocation.pathname).toBe('/');
 	});
+
+	// TODO: TEST APPBAR NOT VISIBLE ON SCROLL
 });

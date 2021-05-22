@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
+import { MemoryRouter, Router } from 'react-router-dom';
 import App from './App';
 
 describe('App Component', () => {
@@ -13,5 +13,21 @@ describe('App Component', () => {
 		);
 		const appbar = screen.getByRole('banner');
 		expect(appbar).toBeInTheDocument();
+	});
+
+	test('render a form to create a new bookstore', async () => {
+		render(
+			<MemoryRouter initialEntries={['/bookstores']}>
+				<App />
+			</MemoryRouter>
+		);
+
+		await waitFor(() => {
+			expect(screen.getByRole('form')).toBeInTheDocument();
+			expect(
+				screen.getByPlaceholderText('Nombre de librería')
+			).toBeInTheDocument();
+			expect(screen.getByText('Crear')).toBeInTheDocument();
+		});
 	});
 });
