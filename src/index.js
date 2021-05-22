@@ -1,4 +1,5 @@
-import ThemeProvider from 'components/Theme';
+import BookstoreProvider from 'providers/Bookstore';
+import ThemeProvider from 'providers/Theme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -9,9 +10,11 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<BookstoreProvider>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</BookstoreProvider>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

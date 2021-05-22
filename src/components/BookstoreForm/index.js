@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 import React from 'react';
 import validator from 'validator';
 
@@ -15,22 +16,29 @@ const nameValidator = (name) => {
 	if (!validator.isAlpha(name, 'es-ES', { ignore: ' -' })) {
 		return 'El nombre sólo debe contener alfanuméricos';
 	}
-	return '';
+	return null;
 };
 
-export default function BookstoreForm() {
+const BookstoreForm = ({ onAddBookstore }) => {
+	const validate = ({ name }) => {
+		const errors = {};
+		const nameError = nameValidator(name);
+		if (nameError) {
+			errors.name = nameError;
+		}
+		return errors;
+	};
+
+	const submitHandler = (values, { setSubmitting }) => {
+		onAddBookstore(values.name);
+		setSubmitting(false);
+	};
+
 	return (
 		<Formik
 			initialValues={initialValues}
-			validate={(values) => {
-				const errors = {};
-				errors.name = nameValidator(values.name);
-				return errors;
-			}}
-			onSubmit={(values, { setSubmitting }) => {
-				console.log(values);
-				setSubmitting(false);
-			}}
+			validate={validate}
+			onSubmit={submitHandler}
 		>
 			{({
 				values,
@@ -51,8 +59,8 @@ export default function BookstoreForm() {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						value={values.name}
-						error={errors.name && touched.name}
-						helperText={errors.name && touched.name && errors.name}
+						error={!!errors.name && touched.name}
+						helperText={!!errors.name && touched.name && errors.name}
 					/>
 					<Button
 						variant="contained"
@@ -66,4 +74,10 @@ export default function BookstoreForm() {
 			)}
 		</Formik>
 	);
-}
+};
+
+BookstoreForm.propTypes = {
+	onAddBookstore: PropTypes.func.isRequired,
+};
+
+export default BookstoreForm;
