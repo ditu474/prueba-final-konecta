@@ -6,9 +6,21 @@ import { act } from 'react-dom/test-utils';
 import * as bookstoreService from 'services/bookstore';
 import BookstoreProvider from '.';
 
-const TestComponent = ({ onAddBookstore, onAddQuote, onMoveQuote }) => {
-	const { bookstores, addBookstore, addQuote, moveQuote } =
-		React.useContext(BookstoreContext);
+const TestComponent = ({
+	onAddBookstore,
+	onAddQuote,
+	onMoveQuote,
+	onDeleteBookstore,
+	onDeleteQuote,
+}) => {
+	const {
+		bookstores,
+		addBookstore,
+		addQuote,
+		moveQuote,
+		deleteBookstore,
+		deleteQuote,
+	} = React.useContext(BookstoreContext);
 	return (
 		<>
 			<ul>
@@ -36,6 +48,18 @@ const TestComponent = ({ onAddBookstore, onAddQuote, onMoveQuote }) => {
 			</button>
 			<button data-testid="moveQuote" onClick={() => onMoveQuote(moveQuote)}>
 				Move Quote
+			</button>
+			<button
+				data-testid="deleteBookstore"
+				onClick={() => onDeleteBookstore(deleteBookstore)}
+			>
+				Delete Bookstore
+			</button>
+			<button
+				data-testid="deleteQuote"
+				onClick={() => onDeleteQuote(deleteQuote)}
+			>
+				Delete Quote
 			</button>
 		</>
 	);
@@ -395,5 +419,51 @@ describe('Bookstore Provider', () => {
 		expect(
 			screen.queryByText('Any').children.item(0).children.item(0).textContent
 		).toBe('quote 2');
+		expect(
+			screen.getByText('Se movió la frase correctamente')
+		).toBeInTheDocument();
 	});
+
+	test('delete a bookstore', () => {
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 9,
+				name: 'Any',
+				quotes: [
+					{
+						id: 1,
+						quote: 'quote 1',
+					},
+					{
+						id: 2,
+						quote: 'quote 2',
+					},
+				],
+			},
+		]);
+
+		const onDeleteBookstoreHandler = (func) => {
+			func(9);
+		};
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onDeleteBookstore={onDeleteBookstoreHandler} />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('deleteBookstore'));
+		});
+
+		expect(screen.queryAllByTestId('bookstore').length).toBe(0);
+		expect(screen.queryAllByTestId('quote').length).toBe(0);
+		expect(
+			screen.getByText('Se ha eliminado la librería Any')
+		).toBeInTheDocument();
+	});
+
+	//TODO: TEST FAILED CASES
 });
