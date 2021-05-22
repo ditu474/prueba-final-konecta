@@ -40,8 +40,17 @@ const BookstoreProvider = ({ children }) => {
 		const bookstore = newBookstores.find(
 			(bookstore) => bookstore.id === bookstoreId
 		);
-		bookstore.quotes.push(quote);
-		updateBookstores(newBookstores);
+		const quoteIndex = bookstore.quotes.findIndex(
+			(bookStoreQuote) => bookStoreQuote.quote === quote.quote
+		);
+		if (quoteIndex !== -1) {
+			enqueueSnackbar('La frase ya existe en la librería', {
+				variant: 'error',
+			});
+		} else {
+			bookstore.quotes.push(quote);
+			updateBookstores(newBookstores);
+		}
 	};
 
 	const ctxValue = {
