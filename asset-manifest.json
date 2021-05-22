@@ -1,22 +1,27 @@
 {
   "files": {
     "main.css": "/prueba-final-konecta/static/css/main.d5642014.chunk.css",
-    "main.js": "/prueba-final-konecta/static/js/main.60e75221.chunk.js",
-    "main.js.map": "/prueba-final-konecta/static/js/main.60e75221.chunk.js.map",
-    "runtime-main.js": "/prueba-final-konecta/static/js/runtime-main.430ad130.js",
-    "runtime-main.js.map": "/prueba-final-konecta/static/js/runtime-main.430ad130.js.map",
-    "static/js/2.191bee1a.chunk.js": "/prueba-final-konecta/static/js/2.191bee1a.chunk.js",
-    "static/js/2.191bee1a.chunk.js.map": "/prueba-final-konecta/static/js/2.191bee1a.chunk.js.map",
-    "static/js/3.8170dbfa.chunk.js": "/prueba-final-konecta/static/js/3.8170dbfa.chunk.js",
-    "static/js/3.8170dbfa.chunk.js.map": "/prueba-final-konecta/static/js/3.8170dbfa.chunk.js.map",
+    "main.js": "/prueba-final-konecta/static/js/main.f9a5f006.chunk.js",
+    "main.js.map": "/prueba-final-konecta/static/js/main.f9a5f006.chunk.js.map",
+    "runtime-main.js": "/prueba-final-konecta/static/js/runtime-main.bf05bd4e.js",
+    "runtime-main.js.map": "/prueba-final-konecta/static/js/runtime-main.bf05bd4e.js.map",
+    "static/js/2.f4f73604.chunk.js": "/prueba-final-konecta/static/js/2.f4f73604.chunk.js",
+    "static/js/2.f4f73604.chunk.js.map": "/prueba-final-konecta/static/js/2.f4f73604.chunk.js.map",
+    "static/js/3.baf4b50f.chunk.js": "/prueba-final-konecta/static/js/3.baf4b50f.chunk.js",
+    "static/js/3.baf4b50f.chunk.js.map": "/prueba-final-konecta/static/js/3.baf4b50f.chunk.js.map",
+    "static/js/4.3ed7e2b6.chunk.js": "/prueba-final-konecta/static/js/4.3ed7e2b6.chunk.js",
+    "static/js/4.3ed7e2b6.chunk.js.map": "/prueba-final-konecta/static/js/4.3ed7e2b6.chunk.js.map",
+    "static/js/5.76d78d0e.chunk.js": "/prueba-final-konecta/static/js/5.76d78d0e.chunk.js",
+    "static/js/5.76d78d0e.chunk.js.map": "/prueba-final-konecta/static/js/5.76d78d0e.chunk.js.map",
     "index.html": "/prueba-final-konecta/index.html",
     "static/css/main.d5642014.chunk.css.map": "/prueba-final-konecta/static/css/main.d5642014.chunk.css.map",
-    "static/js/2.191bee1a.chunk.js.LICENSE.txt": "/prueba-final-konecta/static/js/2.191bee1a.chunk.js.LICENSE.txt"
+    "static/js/2.f4f73604.chunk.js.LICENSE.txt": "/prueba-final-konecta/static/js/2.f4f73604.chunk.js.LICENSE.txt",
+    "static/js/3.baf4b50f.chunk.js.LICENSE.txt": "/prueba-final-konecta/static/js/3.baf4b50f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.430ad130.js",
-    "static/js/2.191bee1a.chunk.js",
+    "static/js/runtime-main.bf05bd4e.js",
+    "static/js/3.baf4b50f.chunk.js",
     "static/css/main.d5642014.chunk.css",
-    "static/js/main.60e75221.chunk.js"
+    "static/js/main.f9a5f006.chunk.js"
   ]
 }
