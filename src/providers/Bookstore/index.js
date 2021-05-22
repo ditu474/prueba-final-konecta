@@ -80,6 +80,22 @@ const BookstoreProvider = ({ children }) => {
 		from.quotes.splice(quoteIndex, 1);
 		to.quotes.push(quote);
 		updateBookstores(newBookstores);
+		enqueueSnackbar('Se movió la frase correctamente', {
+			variant: 'success',
+		});
+	};
+
+	const deleteBookstore = (bookstoreId) => {
+		const newBookstores = [...bookstores];
+		const bookstoreToDeleteIdx = newBookstores.findIndex(
+			(bookstore) => bookstore.id === bookstoreId
+		);
+		const bookstoreToDelete = newBookstores[bookstoreToDeleteIdx];
+		newBookstores.splice(bookstoreToDeleteIdx, 1);
+		updateBookstores(newBookstores);
+		enqueueSnackbar(`Se ha eliminado la librería ${bookstoreToDelete.name}`, {
+			variant: 'success',
+		});
 	};
 
 	const ctxValue = {
@@ -87,6 +103,7 @@ const BookstoreProvider = ({ children }) => {
 		addBookstore,
 		addQuote,
 		moveQuote,
+		deleteBookstore,
 	};
 
 	return (
