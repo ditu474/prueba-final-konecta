@@ -138,7 +138,9 @@ describe('Bookstore Provider', () => {
 			]);
 			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 			expect(screen.getByText(newBookstoreName)).toBeInTheDocument();
-			expect(screen.getByText(`Se creó la librería ${newBookstoreName}`)).toBeInTheDocument();
+			expect(
+				screen.getByText(`Se creó la librería ${newBookstoreName}`)
+			).toBeInTheDocument();
 		});
 	});
 
@@ -270,6 +272,9 @@ describe('Bookstore Provider', () => {
 
 		expect(screen.getAllByTestId('quote').length).toBe(1);
 		expect(screen.getByText(newQuote.quote)).toBeInTheDocument();
+		expect(
+			screen.getByText('Se agregó la frase a Mis Favoritos')
+		).toBeInTheDocument();
 	});
 
 	test('display snackbar if quote already exist in library', () => {
@@ -354,7 +359,7 @@ describe('Bookstore Provider', () => {
 			{
 				id: 9,
 				name: 'Any',
-				quotes:[
+				quotes: [
 					{
 						id: 1,
 						quote: 'quote 1',
@@ -364,30 +369,31 @@ describe('Bookstore Provider', () => {
 						quote: 'quote 2',
 					},
 				],
-			}
+			},
 		]);
 
 		const onMoveQuote = (func) => {
-			func(1, 9, 10) 
-		}
+			func(1, 9, 10);
+		};
 
 		render(
 			<SnackbarProvider>
 				<BookstoreProvider>
-					<TestComponent onMoveQuote={onMoveQuote}/>
+					<TestComponent onMoveQuote={onMoveQuote} />
 				</BookstoreProvider>
 			</SnackbarProvider>
 		);
 
 		act(() => {
 			fireEvent.click(screen.getByTestId('moveQuote'));
-		})
+		});
 
-		expect(screen.queryByText('Favoritos').children.item(0).children.item(0).textContent).toBe(
-			'quote 1'
-		);
-		expect(screen.queryByText('Any').children.item(0).children.item(0).textContent).toBe(
-			'quote 2'
-		);
-	})
+		expect(
+			screen.queryByText('Favoritos').children.item(0).children.item(0)
+				.textContent
+		).toBe('quote 1');
+		expect(
+			screen.queryByText('Any').children.item(0).children.item(0).textContent
+		).toBe('quote 2');
+	});
 });

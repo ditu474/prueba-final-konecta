@@ -56,15 +56,19 @@ const BookstoreProvider = ({ children }) => {
 			enqueueSnackbar('La frase ya existe en la librería', {
 				variant: 'error',
 			});
-		} else {
-			bookstore.quotes.push(quote);
-			const err = updateBookstores(newBookstores);
-			if (err) {
-				enqueueSnackbar('No se logró guardar la frase', {
-					variant: 'error',
-				});
-			}
+			return;
 		}
+		bookstore.quotes.push(quote);
+		const err = updateBookstores(newBookstores);
+		if (err) {
+			enqueueSnackbar('No se logró guardar la frase', {
+				variant: 'error',
+			});
+			return;
+		}
+		enqueueSnackbar(`Se agregó la frase a ${bookstore.name}`, {
+			variant: 'success',
+		});
 	};
 
 	const moveQuote = (quoteId, fromId, toId) => {
