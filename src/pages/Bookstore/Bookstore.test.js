@@ -77,5 +77,35 @@ describe('Bookstore Page', () => {
 		);
 
 		expect(screen.getByText('Library Test')).toBeInTheDocument();
+		expect(screen.getByLabelText('Abrir librería')).toBeInTheDocument();
+	});
+
+	test('do not display the library quotes until user opens the library', () => {
+		render(
+			<BookstoreCtx.Provider
+				value={{
+					bookstores: [
+						{
+							id: 1,
+							name: 'Library Test',
+							quotes: [
+								{ id: 2, quote: 'Test Quote 1' },
+								{ id: 3, quote: 'Test Quote 2' },
+							],
+						},
+					],
+				}}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		expect(screen.queryByText('Test Quote 1')).not.toBeVisible();
+		expect(screen.queryByText('Test Quote 2')).not.toBeVisible();
+
+		fireEvent.click(screen.getByText('Library Test'));
+
+		expect(screen.queryByText('Test Quote 1')).toBeVisible();
+		expect(screen.queryByText('Test Quote 2')).toBeVisible();
 	});
 });
