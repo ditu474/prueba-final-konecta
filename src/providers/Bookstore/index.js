@@ -1,21 +1,28 @@
 import BookstoreCtx from 'context/bookstore';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getSavedBookstores, saveBookstores } from 'services/bookstore';
 
 const BookstoreProvider = ({ children }) => {
 	const [bookstores, setBookstores] = React.useState([]);
+	const { enqueueSnackbar } = useSnackbar();
 
 	React.useEffect(() => {
-		setBookstores(getSavedBookstores());
+		const savedBookstores = getSavedBookstores();
+		setBookstores(savedBookstores);
 	}, []);
 
 	const addBookstore = (name) => {
-		setBookstores((prevBookstores) => {
-			const newBookstores = [...prevBookstores, { id: Math.random(), name }];
-			saveBookstores(newBookstores);
-			return newBookstores;
-		});
+		const newBookstores = [...bookstores, { id: Math.random(), name }];
+		const err = saveBookstores(newBookstores);
+		if (err) {
+			enqueueSnackbar(`No se logró guardar la librería ${name}`, {
+				variant: 'error',
+			});
+		} else {
+			setBookstores(newBookstores);
+		}
 	};
 
 	const ctxValue = {

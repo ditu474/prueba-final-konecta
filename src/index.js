@@ -1,4 +1,5 @@
 import BookstoreProvider from 'providers/Bookstore';
+import SnackbarProvider from 'providers/Snackbar';
 import ThemeProvider from 'providers/Theme';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,11 +11,13 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider>
-			<BookstoreProvider>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
-			</BookstoreProvider>
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+				</BookstoreProvider>
+			</SnackbarProvider>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
