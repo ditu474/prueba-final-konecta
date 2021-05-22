@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
@@ -19,7 +20,23 @@ const nameValidator = (name) => {
 	return null;
 };
 
+const useStyles = makeStyles((theme) => ({
+	form: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexDirection: 'column',
+		width: '100%',
+		marginBottom: theme.spacing(2),
+	},
+	input: {
+		marginBottom: theme.spacing(1),
+	},
+}));
+
 const BookstoreForm = ({ onAddBookstore }) => {
+	const classes = useStyles();
+
 	const validate = ({ name }) => {
 		const errors = {};
 		const nameError = nameValidator(name);
@@ -50,7 +67,11 @@ const BookstoreForm = ({ onAddBookstore }) => {
 				touched,
 				isSubmitting,
 			}) => (
-				<form name="NewBookstore" onSubmit={handleSubmit}>
+				<form
+					name="NewBookstore"
+					onSubmit={handleSubmit}
+					className={classes.form}
+				>
 					<TextField
 						variant="outlined"
 						placeholder="Nombre de librería"
@@ -62,6 +83,7 @@ const BookstoreForm = ({ onAddBookstore }) => {
 						value={values.name}
 						error={!!errors.name && touched.name}
 						helperText={!!errors.name && touched.name && errors.name}
+						className={classes.input}
 					/>
 					<Button
 						variant="contained"

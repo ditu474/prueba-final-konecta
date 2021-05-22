@@ -9,7 +9,7 @@ import BookstoreQuotes from 'components/BookstoreQuotes';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	details: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -21,7 +21,10 @@ const useStyles = makeStyles({
 		alignItems: 'center',
 		width: '100%',
 	},
-});
+	root: {
+		margin: theme.spacing(2),
+	},
+}));
 
 const Bookstores = ({ bookstores, onBookstoreDelete }) => {
 	const deleteBookstoreHandler = (id) => () => {
@@ -29,8 +32,9 @@ const Bookstores = ({ bookstores, onBookstoreDelete }) => {
 	};
 
 	const classes = useStyles();
+
 	return (
-		<>
+		<div className={classes.root}>
 			{bookstores.map((bookstore) => (
 				<Accordion key={bookstore.id}>
 					<AccordionSummary
@@ -56,7 +60,7 @@ const Bookstores = ({ bookstores, onBookstoreDelete }) => {
 					</AccordionDetails>
 				</Accordion>
 			))}
-		</>
+		</div>
 	);
 };
 
