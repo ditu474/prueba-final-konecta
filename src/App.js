@@ -11,7 +11,7 @@ function App() {
 			<Appbar />
 			<Toolbar />
 			<React.Suspense fallback={<span>Loading...</span>}>
-				<main>
+				<main className="container">
 					<Routes />
 				</main>
 			</React.Suspense>

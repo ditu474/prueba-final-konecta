@@ -107,5 +107,7 @@ describe('Bookstore Page', () => {
 
 		expect(screen.queryByText('Test Quote 1')).toBeVisible();
 		expect(screen.queryByText('Test Quote 2')).toBeVisible();
+		expect(screen.queryAllByLabelText('Move Quote').length).toBe(2);
+		expect(screen.queryAllByLabelText('Delete Quote').length).toBe(2);
 	});
 });
