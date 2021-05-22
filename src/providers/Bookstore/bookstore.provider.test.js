@@ -134,7 +134,7 @@ describe('Bookstore Provider', () => {
 		await waitFor(() => {
 			expect(mockSaveBookstores).toBeCalledTimes(1);
 			expect(mockSaveBookstores).toHaveBeenCalledWith([
-				{ id: expect.any(Number), name: newBookstoreName },
+				{ id: expect.any(Number), name: newBookstoreName, quotes: [] },
 			]);
 			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 			expect(screen.getByText(newBookstoreName)).toBeInTheDocument();
@@ -204,5 +204,37 @@ describe('Bookstore Provider', () => {
 		expect(screen.queryByText('Any')).not.toBeInTheDocument();
 		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
 		expect(screen.queryAllByTestId('quote').length).toBe(1);
+	});
+
+	test('add a quote to library', () => {
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 10,
+				name: 'Mis Favoritos',
+				quotes: [],
+			},
+		]);
+		const newQuote = {
+			id: Math.random(),
+			quote: 'This is a test quote',
+		};
+		const addToLibrary = (func) => {
+			func(newQuote, 10);
+		};
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onAddQuote={addToLibrary} />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('addQuote'));
+		});
+
+		expect(screen.getAllByTestId('quote').length).toBe(1);
+		expect(screen.getByText(newQuote.quote)).toBeInTheDocument();
 	});
 });
