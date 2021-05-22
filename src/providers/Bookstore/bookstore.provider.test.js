@@ -212,8 +212,8 @@ describe('Bookstore Provider', () => {
 			{
 				id: 10,
 				name: newBookstoreName,
-				quotes: []
-			}
+				quotes: [],
+			},
 		]);
 		const addBookstore = (func) => {
 			func(newBookstoreName);
@@ -231,12 +231,12 @@ describe('Bookstore Provider', () => {
 			fireEvent.click(screen.getByText('Add Bookstore'));
 		});
 
-			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
-			expect(
-				screen.getByText(
-					`Ya existe una librería con el nombre ${newBookstoreName}`
-				)
-			).toBeInTheDocument();
+		expect(screen.queryAllByTestId('bookstore').length).toBe(1);
+		expect(
+			screen.getByText(
+				`Ya existe una librería con el nombre ${newBookstoreName}`
+			)
+		).toBeInTheDocument();
 	});
 
 	test('add a quote to library', () => {
@@ -342,6 +342,4 @@ describe('Bookstore Provider', () => {
 			screen.getByText('No se logró guardar la frase')
 		).toBeInTheDocument();
 	});
-
-	//TODO: probar que muestre error si añade una lbreria ya existente
 });

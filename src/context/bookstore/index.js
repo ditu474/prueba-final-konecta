@@ -5,6 +5,8 @@ const BookstoreContext = React.createContext({
 	addBookstore: (name) => {},
 	addQuote: (quote, bookstoreId) => {},
 	moveQuote: (quoteId, fromId, toId) => {},
+	deleteBookstore: (bookstoreId) => {},
+	deleteQuote: (quoteId, bookstoreId) => {},
 });
 
 export default BookstoreContext;
