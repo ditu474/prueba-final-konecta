@@ -1,7 +1,7 @@
 import BookstoreCtx from 'context/bookstore';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getSavedBookstores } from 'services/bookstore';
+import { getSavedBookstores, saveBookstores } from 'services/bookstore';
 
 const BookstoreProvider = ({ children }) => {
 	const [bookstores, setBookstores] = React.useState([]);
@@ -11,7 +11,11 @@ const BookstoreProvider = ({ children }) => {
 	}, []);
 
 	const addBookstore = (name) => {
-		console.log('From provider ', name);
+		setBookstores((prevBookstores) => {
+			const newBookstores = [...prevBookstores, { id: Math.random(), name }];
+			saveBookstores(newBookstores);
+			return newBookstores;
+		});
 	};
 
 	const ctxValue = {
