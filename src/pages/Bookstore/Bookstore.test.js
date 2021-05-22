@@ -49,7 +49,23 @@ describe('Bookstore Page', () => {
 		});
 	});
 
-	//TODO: TEST RESTART STATE OF FORM
+	test('restart the state of the form when submitted', async () => {
+		render(
+			<BookstoreCtx.Provider
+				value={{ addBookstore: jest.fn(), bookstores: [] }}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		fireEvent.input(screen.getByPlaceholderText('Nombre de librería'), {
+			target: { value: 'Mis favoritos' },
+		});
+		fireEvent.click(screen.getByText('Crear'));
+
+		const input = await screen.findByPlaceholderText('Nombre de librería');
+		expect(input.value).toBe('');
+	});
 
 	test('render the bookstores provided by the context provider', () => {
 		render(
