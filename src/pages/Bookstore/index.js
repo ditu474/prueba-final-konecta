@@ -4,7 +4,7 @@ import bookStoreContext from 'context/bookstore';
 import React from 'react';
 
 export default function Bookstore() {
-	const { addBookstore, bookstores, deleteBookstore, deleteQuote } =
+	const { addBookstore, bookstores, deleteBookstore } =
 		React.useContext(bookStoreContext);
 
 	const newBookstoreHandler = (bookstoreName) => {
@@ -15,17 +15,12 @@ export default function Bookstore() {
 		deleteBookstore(bookstoreId);
 	};
 
-	const deleteQuoteHandler = (quoteId, bookstoreId) => {
-		deleteQuote(quoteId, bookstoreId);
-	};
-
 	return (
 		<>
 			<BookstoreForm onAddBookstore={newBookstoreHandler} />
 			<Bookstores
 				bookstores={bookstores}
 				onBookstoreDelete={deleteBookstoreHandler}
-				onQuoteDelete={deleteQuoteHandler}
 			/>
 		</>
 	);

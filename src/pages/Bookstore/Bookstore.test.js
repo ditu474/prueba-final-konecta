@@ -155,4 +155,43 @@ describe('Bookstore Page', () => {
 		expect(deleteQuoteSpy).toHaveBeenCalledTimes(1);
 		expect(deleteQuoteSpy).toHaveBeenCalledWith(10, 3);
 	});
+
+	test('display the bookstores when user clicks the move button', () => {
+		render(
+			<BookstoreCtx.Provider
+				value={{
+					bookstores: [
+						{
+							id: 3,
+							name: 'Library Test',
+							quotes: [{ id: 10, quote: 'Test Quote 1' }],
+						},
+						{
+							id: 5,
+							name: 'Favoritos',
+							quotes: [],
+						},
+						{
+							id: 10,
+							name: 'Empty',
+							quotes: [],
+						},
+					],
+				}}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		fireEvent.click(screen.getByText('Library Test'));
+
+		expect(screen.queryAllByText('Library Test').length).toBe(1);
+		expect(screen.queryAllByText('Favoritos')[1]).not.toBeVisible();
+		expect(screen.queryAllByText('Empty')[1]).not.toBeVisible();
+
+		fireEvent.click(screen.getByLabelText('Move Quote'));
+
+		expect(screen.queryAllByText('Favoritos')[1]).toBeVisible();
+		expect(screen.queryAllByText('Empty')[1]).toBeVisible();
+	});
 });
