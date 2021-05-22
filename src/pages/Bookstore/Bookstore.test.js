@@ -194,4 +194,36 @@ describe('Bookstore Page', () => {
 		expect(screen.queryAllByText('Favoritos')[1]).toBeVisible();
 		expect(screen.queryAllByText('Empty')[1]).toBeVisible();
 	});
+
+	test('call moveQuote with the correct values', () => {
+		const moveQuoteSpy = jest.fn();
+		render(
+			<BookstoreCtx.Provider
+				value={{
+					bookstores: [
+						{
+							id: 3,
+							name: 'Library Test',
+							quotes: [{ id: 10, quote: 'Test Quote 1' }],
+						},
+						{
+							id: 5,
+							name: 'Favoritos',
+							quotes: [],
+						},
+					],
+					moveQuote: moveQuoteSpy,
+				}}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		fireEvent.click(screen.getByText('Library Test'));
+		fireEvent.click(screen.getByLabelText('Move Quote'));
+		fireEvent.click(screen.queryAllByText('Favoritos')[1]);
+
+		expect(moveQuoteSpy).toHaveBeenCalledTimes(1);
+		expect(moveQuoteSpy).toHaveBeenCalledWith(10, 3, 5);
+	});
 });
