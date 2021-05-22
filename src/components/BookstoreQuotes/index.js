@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import ImportExport from '@material-ui/icons/ImportExport';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -14,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BookstoreQuotes = ({ quotes }) => {
+const BookstoreQuotes = ({ quotes, onDeleteQuote }) => {
 	const classes = useStyles();
+
 	return (
 		<>
 			{quotes.map((quote) => (
@@ -25,7 +27,11 @@ const BookstoreQuotes = ({ quotes }) => {
 						<IconButton aria-label="Move Quote" color="secondary">
 							<ImportExport />
 						</IconButton>
-						<IconButton aria-label="Delete Quote" color="primary">
+						<IconButton
+							aria-label="Delete Quote"
+							color="primary"
+							onClick={() => onDeleteQuote(quote.id)}
+						>
 							<DeleteForever />
 						</IconButton>
 					</CardActions>
@@ -37,6 +43,7 @@ const BookstoreQuotes = ({ quotes }) => {
 
 BookstoreQuotes.propTypes = {
 	quotes: PropTypes.array.isRequired,
+	onDeleteQuote: PropTypes.func.isRequired,
 };
 
 export default BookstoreQuotes;

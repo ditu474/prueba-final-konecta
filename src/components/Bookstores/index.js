@@ -23,9 +23,13 @@ const useStyles = makeStyles({
 	},
 });
 
-const Bookstores = ({ bookstores, onBookstoreDelete }) => {
+const Bookstores = ({ bookstores, onBookstoreDelete, onQuoteDelete }) => {
 	const deleteBookstoreHandler = (id) => () => {
 		onBookstoreDelete(id);
+	};
+
+	const deleteQuoteHandler = (bookstoreId) => (quoteId) => {
+		onQuoteDelete(quoteId, bookstoreId);
 	};
 
 	const classes = useStyles();
@@ -49,7 +53,10 @@ const Bookstores = ({ bookstores, onBookstoreDelete }) => {
 						</div>
 					</AccordionSummary>
 					<AccordionDetails className={classes.details}>
-						<BookstoreQuotes quotes={bookstore.quotes} />
+						<BookstoreQuotes
+							quotes={bookstore.quotes}
+							onDeleteQuote={deleteQuoteHandler(bookstore.id)}
+						/>
 					</AccordionDetails>
 				</Accordion>
 			))}
@@ -60,6 +67,7 @@ const Bookstores = ({ bookstores, onBookstoreDelete }) => {
 Bookstores.propTypes = {
 	bookstores: PropTypes.array.isRequired,
 	onBookstoreDelete: PropTypes.func.isRequired,
+	onQuoteDelete: PropTypes.func.isRequired,
 };
 
 export default Bookstores;
