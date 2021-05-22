@@ -31,7 +31,9 @@ describe('Bookstore Page', () => {
 	test('call addBookstore context function with correct values', async () => {
 		const addBookstoreSpy = jest.fn();
 		render(
-			<BookstoreCtx.Provider value={{ addBookstore: addBookstoreSpy }}>
+			<BookstoreCtx.Provider
+				value={{ addBookstore: addBookstoreSpy, bookstores: [] }}
+			>
 				<Bookstore />
 			</BookstoreCtx.Provider>
 		);
@@ -45,5 +47,19 @@ describe('Bookstore Page', () => {
 			expect(addBookstoreSpy).toHaveBeenCalledTimes(1);
 			expect(addBookstoreSpy).toHaveBeenCalledWith('Mis favoritos');
 		});
+	});
+
+	//TODO: TEST RESTART STATE OF FORM
+
+	test('render the bookstores provided by the context provider', () => {
+		render(
+			<BookstoreCtx.Provider
+				value={{ bookstores: [{ id: 1, name: 'Library Test', quotes: [] }] }}
+			>
+				<Bookstore />
+			</BookstoreCtx.Provider>
+		);
+
+		expect(screen.getByText('Library Test')).toBeInTheDocument();
 	});
 });
