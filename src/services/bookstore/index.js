@@ -9,5 +9,9 @@ export const getSavedBookstores = () => {
 };
 
 export const saveBookstores = (bookstores) => {
-	localStorage.setItem(BOOKSTORES_KEY, JSON.stringify(bookstores));
+	try {
+		localStorage.setItem(BOOKSTORES_KEY, JSON.stringify(bookstores));
+	} catch {
+		return 'failed to save locally';
+	}
 };
