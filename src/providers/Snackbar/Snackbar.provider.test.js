@@ -71,4 +71,22 @@ describe('Snackbar Provider', () => {
 			expect(screen.queryByText('Snackbar 1')).not.toBeInTheDocument();
 		});
 	});
+
+	test('snackbar should dissapear if Dismiss is clicked', async () => {
+		render(
+			<SnackbarProvider>
+				<TestComponent />
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByText('Open Snackbar'));
+		});
+
+		fireEvent.click(screen.getByText('Dismiss'));
+
+		await waitFor(() => {
+			expect(screen.queryByText('Snackbar 1')).not.toBeInTheDocument();
+		});
+	});
 });
