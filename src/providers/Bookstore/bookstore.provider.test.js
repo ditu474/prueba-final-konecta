@@ -206,6 +206,39 @@ describe('Bookstore Provider', () => {
 		expect(screen.queryAllByTestId('quote').length).toBe(1);
 	});
 
+	test('display snackbar if library name already exists', () => {
+		const newBookstoreName = 'Test New Bookstore';
+		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
+			{
+				id: 10,
+				name: newBookstoreName,
+				quotes: []
+			}
+		]);
+		const addBookstore = (func) => {
+			func(newBookstoreName);
+		};
+
+		render(
+			<SnackbarProvider>
+				<BookstoreProvider>
+					<TestComponent onAddBookstore={addBookstore} />
+				</BookstoreProvider>
+			</SnackbarProvider>
+		);
+
+		act(() => {
+			fireEvent.click(screen.getByText('Add Bookstore'));
+		});
+
+			expect(screen.queryAllByTestId('bookstore').length).toBe(1);
+			expect(
+				screen.getByText(
+					`Ya existe una librería con el nombre ${newBookstoreName}`
+				)
+			).toBeInTheDocument();
+	});
+
 	test('add a quote to library', () => {
 		jest.spyOn(bookstoreService, 'getSavedBookstores').mockReturnValue([
 			{
