@@ -98,12 +98,26 @@ const BookstoreProvider = ({ children }) => {
 		});
 	};
 
+	const deleteQuote = (quoteId, bookstoreId) => {
+		const newBookstores = [...bookstores];
+		const bookstore = newBookstores.find(
+			(bookstore) => bookstore.id === bookstoreId
+		);
+		const newQuotes = bookstore.quotes.filter((quote) => quote.id !== quoteId);
+		bookstore.quotes = newQuotes;
+		updateBookstores(newBookstores);
+		enqueueSnackbar('Se ha eliminado la frase', {
+			variant: 'success',
+		});
+	};
+
 	const ctxValue = {
 		bookstores,
 		addBookstore,
 		addQuote,
 		moveQuote,
 		deleteBookstore,
+		deleteQuote,
 	};
 
 	return (
