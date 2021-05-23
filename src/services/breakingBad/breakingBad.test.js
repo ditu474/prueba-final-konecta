@@ -19,7 +19,7 @@ describe('Breaking Bad service', () => {
 		);
 	});
 
-	test('if response is not ok should throw', async () => {
+	test('if response is not ok, getCharacters should throw', async () => {
 		jest.spyOn(global, 'fetch').mockResolvedValue({
 			ok: false,
 		});
@@ -29,7 +29,7 @@ describe('Breaking Bad service', () => {
 		);
 	});
 
-	test('return the list of characters if fetch succeed', async () => {
+	test('getCharacters return the list of characters if fetch succeed', async () => {
 		const mockResponse = [
 			{
 				char_id: 1,
@@ -67,5 +67,15 @@ describe('Breaking Bad service', () => {
 		expect(fetchSpy).toHaveBeenCalledWith(
 			'https://www.breakingbadapi.com/api/characters?limit=10&offset=5'
 		);
+	});
+
+	test('if response is not ok, getCharactersFiltered should throw', async () => {
+		jest.spyOn(global, 'fetch').mockResolvedValue({
+			ok: false,
+		});
+
+		await expect(
+			getCharactersFiltered({ limit: 10, offset: 5 })
+		).rejects.toThrow('Error fetching Breaking Bad characters');
 	});
 });
