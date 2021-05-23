@@ -1,5 +1,6 @@
 import LoadingSpinner from 'components/LoadingSpinner';
 import QuoteItem from 'components/QuoteItem';
+import QuoteRates from 'components/QuoteRates';
 import useHtpp from 'hooks/use-http';
 import React from 'react';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
@@ -28,7 +29,7 @@ const Quote = () => {
 					<span>Comentarios</span>
 				</Route>
 				<Route path={`${path}/rate`} exact>
-					<span>Calificaciones</span>
+					<QuoteRates />
 				</Route>
 			</Switch>
 		</>
