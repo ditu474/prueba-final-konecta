@@ -36,6 +36,7 @@ describe('App Component', () => {
 
 		await waitFor(() => {
 			// Se resta el link de navegación
+			expect(screen.queryByText('Filtros Avanzados')).toBeInTheDocument();
 			expect(screen.queryAllByRole('list').length - 1).toBe(1);
 			expect(screen.queryAllByRole('listitem').length - 1).toBe(5);
 			expect(screen.queryByLabelText('Page number').textContent).toBe('1');

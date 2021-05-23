@@ -1,6 +1,7 @@
 const Home = () => {
 	return (
 		<>
+			<button>Filtros Avanzados</button>
 			<ul>
 				<li></li>
 				<li></li>
