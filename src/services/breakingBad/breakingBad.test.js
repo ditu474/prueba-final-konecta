@@ -18,4 +18,14 @@ describe('Breaking Bad service', () => {
 			'https://www.breakingbadapi.com/api/characters'
 		);
 	});
+
+	test('if response is not ok should throw', async () => {
+		jest.spyOn(global, 'fetch').mockResolvedValue({
+			ok: false,
+		});
+
+		await expect(getBreakingBadCharacters()).rejects.toThrow(
+			'Error fetching Breaking Bad characters'
+		);
+	});
 });

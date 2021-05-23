@@ -5,7 +5,7 @@ export const getBreakingBadCharacters = async () => {
 	return fetch(url)
 		.then((res) => {
 			if (res.ok) return res.json();
-			throw new Error('Error fetching the most popular articles from NYT');
+			throw new Error('Error fetching Breaking Bad characters');
 		})
 		.then((res) => res.results);
 };
