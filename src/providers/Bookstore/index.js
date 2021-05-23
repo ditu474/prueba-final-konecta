@@ -50,7 +50,7 @@ const BookstoreProvider = ({ children }) => {
 			(bookstore) => bookstore.id === bookstoreId
 		);
 		const quoteIndex = bookstore.quotes.findIndex(
-			(bookStoreQuote) => bookStoreQuote.quote === quote.quote
+			(bookStoreQuote) => bookStoreQuote.id === quote.id
 		);
 		if (quoteIndex !== -1) {
 			enqueueSnackbar('La frase ya existe en la librería', {
