@@ -10,7 +10,7 @@ const usePaginationHttp = (apiCall, maxElementsPerPage) => {
 	React.useEffect(() => {
 		sendRequest({
 			limit: maxElementsPerPage,
-			offset: currentPage - 1 * maxElementsPerPage,
+			offset: (currentPage - 1) * maxElementsPerPage,
 		});
 	}, [currentPage, maxElementsPerPage, sendRequest]);
 
