@@ -1,21 +1,25 @@
+import React from 'react';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+
+const Characters = React.lazy(() => import('components/Characters'));
+
 const Home = () => {
+	let { path } = useRouteMatch();
+
 	return (
 		<>
 			<button>Filtros Avanzados</button>
-			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-			<div>
-				<button aria-label="Previous page" disabled>
-					{'<'}
-				</button>
-				<p aria-label="Page number">1</p>
-				<button aria-label="Next page">{'>'}</button>
-			</div>
+			<Switch>
+				<Route path={`${path}`} exact>
+					<Characters />
+				</Route>
+				<Route path={`${path}/filtered`} exact>
+					<div>Filtered Characters</div>
+				</Route>
+				<Route path="*">
+					<Redirect to="/characters" />
+				</Route>
+			</Switch>
 		</>
 	);
 };
