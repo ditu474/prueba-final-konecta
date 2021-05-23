@@ -27,7 +27,7 @@ describe('App Component', () => {
 		expect(history.location.pathname).toBe('/');
 	});
 
-	test.skip('render a list of characters on the home page with paginator', async () => {
+	test('render a list of characters on the home page with paginator', async () => {
 		render(
 			<MemoryRouter initialEntries={['/']}>
 				<App />
@@ -35,11 +35,12 @@ describe('App Component', () => {
 		);
 
 		await waitFor(() => {
-			expect(screen.queryByRole('list')).toBeInTheDocument();
-			expect(screen.queryAllByRole('listitem').length).toBe(5);
-			expect(screen.queryByLabelText('Page number').textContent).toBe(1);
+			// Se resta el link de navegación
+			expect(screen.queryAllByRole('list').length - 1).toBe(1);
+			expect(screen.queryAllByRole('listitem').length - 1).toBe(5);
+			expect(screen.queryByLabelText('Page number').textContent).toBe('1');
 			expect(screen.queryByLabelText('Previous page')).toBeDisabled();
-			expect(screen.queryByLabelText('Next page')).toBeDisabled();
+			expect(screen.queryByLabelText('Next page')).toBeInTheDocument();
 		});
 	});
 

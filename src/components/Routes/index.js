@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Bookstore = React.lazy(() => import('pages/Bookstore'));
+const Home = React.lazy(() => import('pages/Home'));
 
 export default function Routes() {
 	return (
@@ -10,7 +11,7 @@ export default function Routes() {
 				<Bookstore />
 			</Route>
 			<Route path="/" exact>
-				<div>Test</div>
+				<Home />
 			</Route>
 			<Route path="*">
 				<Redirect to="/" />
