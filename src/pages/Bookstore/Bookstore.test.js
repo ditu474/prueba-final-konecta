@@ -22,9 +22,7 @@ describe('Bookstore Page', () => {
 		fireEvent.click(screen.getByText('Crear'));
 
 		await waitFor(() => {
-			expect(
-				screen.getByText('El nombre sólo debe contener alfanuméricos')
-			).toBeInTheDocument();
+			expect(screen.getByText('Solo letras')).toBeInTheDocument();
 		});
 	});
 
