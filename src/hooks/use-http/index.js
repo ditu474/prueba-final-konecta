@@ -69,15 +69,8 @@ export default function useHttp(reqFunc) {
 		[reqFunc]
 	);
 
-	const reset = React.useCallback(() => {
-		dispatch({
-			type: RESET_ACTION,
-		});
-	}, []);
-
 	return {
 		...httpState,
 		sendRequest,
-		reset,
 	};
 }
