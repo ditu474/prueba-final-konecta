@@ -7,7 +7,15 @@ const Home = () => {
 	let { path } = useRouteMatch();
 
 	return (
-		<>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				justifyContent: 'center',
+				marginBottom: '2rem',
+			}}
+		>
 			<button>Filtros Avanzados</button>
 			<Switch>
 				<Route path={`${path}`} exact>
@@ -20,7 +28,7 @@ const Home = () => {
 					<Redirect to="/characters" />
 				</Route>
 			</Switch>
-		</>
+		</div>
 	);
 };
 

@@ -1,7 +1,6 @@
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import { Card, CardContent, CardMedia, List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import CharacterQuotes from 'components/CharacterQuotes';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,14 +9,25 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2, 0),
 		padding: theme.spacing(2),
 	},
+	card: {
+		maxWidth: 350,
+	},
 	media: {
 		height: 300,
-		width: 250,
+		width: '100%',
 		objectFit: 'cover',
 		overflow: 'hidden',
 	},
 	title: {
 		margin: theme.spacing(0, 0, 2, 0),
+	},
+	content: {
+		maxHeight: 300,
+		overflow: 'scroll',
+	},
+	root: {
+		width: '100%',
+		maxWidth: 350,
 	},
 }));
 
@@ -26,18 +36,18 @@ const CharacterItem = ({ character }) => {
 
 	return (
 		<li className={classes.character}>
-			<Card>
+			<Card className={classes.card}>
 				<CardMedia
 					className={classes.media}
 					image={character.img}
 					title={character.name}
 					alt={character.name}
 				/>
-				<CardContent>
+				<CardContent className={classes.content}>
 					<h4 className={classes.title}>{character.name}</h4>
-					<ul>
-						<li>Quote</li>
-					</ul>
+					<List className={classes.root}>
+						<CharacterQuotes characterName={character.name} />
+					</List>
 				</CardContent>
 			</Card>
 		</li>

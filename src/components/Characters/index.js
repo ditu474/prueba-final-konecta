@@ -37,6 +37,7 @@ const Characters = () => {
 					aria-label="Previous page"
 					onClick={goToPrevPage}
 					disabled={currentPage < 2}
+					color="secondary"
 				>
 					<ArrowBack />
 				</IconButton>
@@ -45,6 +46,7 @@ const Characters = () => {
 					aria-label="Next page"
 					onClick={goToNextPage}
 					disabled={filteredItems.length < MAX_ELEMENTS_PER_PAGE}
+					color="secondary"
 				>
 					<ArrowForward />
 				</IconButton>
