@@ -4,7 +4,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 const Characters = React.lazy(() => import('components/Characters'));
 
 const Home = () => {
-	let { path } = useRouteMatch();
+	const { path } = useRouteMatch();
 
 	return (
 		<div
