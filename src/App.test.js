@@ -5,14 +5,42 @@ import App from './App';
 
 describe('App Component', () => {
 	test('renders appbar', () => {
+		render(
+			<MemoryRouter initialEntries={['/']}>
+				<App />
+			</MemoryRouter>
+		);
+		const appbar = screen.getByRole('banner');
+		expect(appbar).toBeInTheDocument();
+	});
+
+	test('Redirect to the home page when user go to unexisting route', () => {
 		const history = createMemoryHistory();
+		history.push('/unexisting-route');
+
 		render(
 			<Router history={history}>
 				<App />
 			</Router>
 		);
-		const appbar = screen.getByRole('banner');
-		expect(appbar).toBeInTheDocument();
+
+		expect(history.location.pathname).toBe('/');
+	});
+
+	test.skip('render a list of characters on the home page with paginator', async () => {
+		render(
+			<MemoryRouter initialEntries={['/']}>
+				<App />
+			</MemoryRouter>
+		);
+
+		await waitFor(() => {
+			expect(screen.queryByRole('list')).toBeInTheDocument();
+			expect(screen.queryAllByRole('listitem').length).toBe(5);
+			expect(screen.queryByLabelText('Page number').textContent).toBe(1);
+			expect(screen.queryByLabelText('Previous page')).toBeDisabled();
+			expect(screen.queryByLabelText('Next page')).toBeDisabled();
+		});
 	});
 
 	test('render a form to create a new bookstore', async () => {
