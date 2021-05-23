@@ -104,4 +104,6 @@ describe('Breaking Bad service', () => {
 
 		expect(res).toEqual(mockResponse);
 	});
+
+	//TODO: TEST getAuthorQuotes getQuoteById
 });
