@@ -1,5 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
+import LoadingSpinner from 'components/LoadingSpinner';
 import usePaginationHttp from 'hooks/use-paginationHttp';
 import { getCharactersFiltered } from 'services/breakingBad';
 import styles from './Characters.module.scss';
@@ -11,7 +12,7 @@ const Characters = () => {
 		usePaginationHttp(getCharactersFiltered, MAX_ELEMENTS_PER_PAGE);
 
 	if (loading) {
-		return <span>loading...</span>;
+		return <LoadingSpinner />;
 	}
 
 	if (currentPage === 1 && filteredItems.length === 0) {
