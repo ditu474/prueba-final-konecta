@@ -1,16 +1,20 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Bookstore = React.lazy(() => import('pages/Bookstore'));
+const Home = React.lazy(() => import('pages/Home'));
 
 export default function Routes() {
 	return (
 		<Switch>
-			<Route path="/bookstores">
+			<Route path="/bookstores" exact>
 				<Bookstore />
 			</Route>
-			<Route path="/" exact>
-				<div>Test</div>
+			<Route path="/characters">
+				<Home />
+			</Route>
+			<Route path="*">
+				<Redirect to="/characters" />
 			</Route>
 		</Switch>
 	);

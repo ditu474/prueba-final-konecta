@@ -1,0 +1,20 @@
+.actions {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-top: 1rem;
+
+    button {
+        margin: 0 0.5rem;
+    }
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}

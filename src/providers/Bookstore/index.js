@@ -50,7 +50,7 @@ const BookstoreProvider = ({ children }) => {
 			(bookstore) => bookstore.id === bookstoreId
 		);
 		const quoteIndex = bookstore.quotes.findIndex(
-			(bookStoreQuote) => bookStoreQuote.quote === quote.quote
+			(bookStoreQuote) => bookStoreQuote.id === quote.id
 		);
 		if (quoteIndex !== -1) {
 			enqueueSnackbar('La frase ya existe en la librería', {
@@ -74,10 +74,19 @@ const BookstoreProvider = ({ children }) => {
 	const moveQuote = (quoteId, fromId, toId) => {
 		const newBookstores = [...bookstores];
 		const from = newBookstores.find((bookstore) => bookstore.id === fromId);
+		const quoteIndexFrom = from.quotes.findIndex(
+			(quote) => quote.id === quoteId
+		);
 		const to = newBookstores.find((bookstore) => bookstore.id === toId);
-		const quoteIndex = from.quotes.findIndex((quote) => quote.id === quoteId);
-		const quote = from.quotes[quoteIndex];
-		from.quotes.splice(quoteIndex, 1);
+		const quoteIndexTo = to.quotes.findIndex((quote) => quote.id === quoteId);
+		if (quoteIndexTo !== -1) {
+			enqueueSnackbar('La frase ya existe en la librería', {
+				variant: 'error',
+			});
+			return;
+		}
+		const quote = from.quotes[quoteIndexFrom];
+		from.quotes.splice(quoteIndexFrom, 1);
 		to.quotes.push(quote);
 		updateBookstores(newBookstores);
 		enqueueSnackbar('Se movió la frase correctamente', {

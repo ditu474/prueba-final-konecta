@@ -21,7 +21,7 @@ const MenuButton = ({ children, elements }) => {
 
 	return (
 		<>
-			<div onClick={handleClick}>{children}</div>
+			<span onClick={handleClick}>{children}</span>
 			<Menu
 				anchorEl={anchorEl}
 				keepMounted
