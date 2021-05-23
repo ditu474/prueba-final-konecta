@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import { getQuoteRate, saveQuoteRates } from 'services/quoteRate';
+import RateList from './RateList';
 
 const QuoteRates = () => {
 	const { id } = useParams();
@@ -13,46 +15,47 @@ const QuoteRates = () => {
 
 		if (savedQuoteRates.length > 0) {
 			const sum = savedQuoteRates.reduce(
-				(prevVal, currentVal) => prevVal + currentVal,
+				(prevVal, currentVal) => prevVal + currentVal.rate,
 				0
 			);
 			const newRateAvrg = sum / savedQuoteRates.length;
-			setRateAverage(newRateAvrg.toFixed(1));
+			setRateAverage(newRateAvrg);
 		}
 		// eslint-disable-next-line
 	}, []);
 
-	React.useEffect(() => {
-		const quoteRateslength = quoteRates.length;
-		if (quoteRateslength === 0) return;
-
-		const lastRate = quoteRates[quoteRateslength - 1];
-		const lastSum = rateAverage * (quoteRateslength - 1);
-		const newAverage = (lastSum + lastRate) / quoteRateslength;
-		setRateAverage(newAverage.toFixed(1));
-		// eslint-disable-next-line
-	}, [quoteRates]);
-
-	const addRateHandler = () => {
-		setQuoteRates((prevQuoteRates) => [...prevQuoteRates, 4]);
-		saveQuoteRates(id, 4);
+	const calculateNewRate = (newRate) => {
+		const totalRates = quoteRates.length;
+		const lastSum = rateAverage * totalRates;
+		const newAverage = (lastSum + newRate) / (totalRates + 1);
+		setRateAverage(newAverage);
 	};
 
-	let content;
-	if (quoteRates.length === 0) {
-		content = <h4>Añade una calificación</h4>;
-	} else {
-		content = quoteRates.map((rate) => (
-			<li key={Math.random() + rate}>{rate}</li>
-		));
-	}
+	const addRateHandler = (newRating) => {
+		calculateNewRate(newRating);
+		const rate = { id: Math.random() + newRating, rate: newRating };
+		setQuoteRates((prevQuoteRates) => [rate, ...prevQuoteRates]);
+		saveQuoteRates(id, rate);
+	};
 
 	return (
-		<>
-			<h4>Promedio: {rateAverage}</h4>
-			<button onClick={addRateHandler}>Añadir calificación</button>
-			<ul>{content}</ul>
-		</>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}
+		>
+			<h4>Promedio: {rateAverage.toFixed(1)}</h4>
+			<ReactStars
+				count={5}
+				onChange={addRateHandler}
+				size={40}
+				isHalf={true}
+				activeColor="#ffd700"
+			/>
+			<RateList rates={quoteRates} />
+		</div>
 	);
 };
 

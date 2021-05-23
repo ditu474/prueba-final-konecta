@@ -21,7 +21,9 @@ export const getQuoteRate = (quoteId) => {
 
 	if (quoteRates.length === 0) return [];
 
-	const quoteRateObj = quoteRates.find((quoteRate) => quoteRate.id === quoteId);
+	const quoteRateObj = quoteRates.find(
+		(quoteRate) => quoteRate.id === String(quoteId)
+	);
 	if (!quoteRateObj) {
 		return [];
 	}
@@ -35,12 +37,14 @@ export const saveQuoteRates = (quoteId, quoteRate) => {
 		return;
 	}
 
-	const quoteRateObj = quoteRates.find((quoteRate) => quoteRate.id === quoteId);
+	const quoteRateObj = quoteRates.find(
+		(quoteRate) => quoteRate.id === String(quoteId)
+	);
 	if (!quoteRateObj) {
-		saveQuoteRatesLocally([{ id: quoteId, rates: [quoteRate] }]);
+		saveQuoteRatesLocally([{ id: quoteId, rates: [quoteRate] }, ...quoteRates]);
 		return;
 	}
 
-	quoteRateObj.rates.push(quoteRate);
+	quoteRateObj.rates = [quoteRate, ...quoteRateObj.rates];
 	saveQuoteRatesLocally(quoteRates);
 };
