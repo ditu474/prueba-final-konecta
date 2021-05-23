@@ -1,6 +1,7 @@
-import { Card, CardContent } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -25,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 const QuoteItem = ({ quote }) => {
 	const classes = useStyles();
+	const history = useHistory();
+
+	const handleRateClick = () => {
+		history.push(`/quote/${quote.quote_id}/rate`);
+	};
+
+	const handleCommentsClick = () => {
+		history.push(`/quote/${quote.quote_id}/comments`);
+	};
 
 	return (
 		<Card variant="outlined" className={classes.card}>
@@ -39,6 +49,14 @@ const QuoteItem = ({ quote }) => {
 					<h5 className={classes.h5}>{quote.series}</h5>
 				</div>
 			</CardContent>
+			<CardActions>
+				<Button size="small" color="secondary" onClick={handleCommentsClick}>
+					Comentarios
+				</Button>
+				<Button size="small" color="secondary" onClick={handleRateClick}>
+					Calificación
+				</Button>
+			</CardActions>
 		</Card>
 	);
 };
