@@ -1,4 +1,4 @@
-import { getBreakingBadCharacters } from '.';
+import { getBreakingBadCharacters, getCharactersFiltered } from '.';
 
 describe('Breaking Bad service', () => {
 	afterEach(() => {
@@ -29,7 +29,7 @@ describe('Breaking Bad service', () => {
 		);
 	});
 
-	test('return the list of characters if fetch suceed', async () => {
+	test('return the list of characters if fetch succeed', async () => {
 		const mockResponse = [
 			{
 				char_id: 1,
@@ -53,5 +53,19 @@ describe('Breaking Bad service', () => {
 		const res = await getBreakingBadCharacters();
 
 		expect(res).toEqual(mockResponse);
+	});
+
+	test('getCharactersFiltered should call fetch with correct values', async () => {
+		const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
+			ok: true,
+			json: jest.fn().mockResolvedValue([]),
+		});
+
+		await getCharactersFiltered({ limit: 10, offset: 5 });
+
+		expect(fetchSpy).toHaveBeenCalledTimes(1);
+		expect(fetchSpy).toHaveBeenCalledWith(
+			'https://www.breakingbadapi.com/api/characters?limit=10&offset=5'
+		);
 	});
 });

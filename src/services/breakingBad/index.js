@@ -7,3 +7,11 @@ export const getBreakingBadCharacters = async () => {
 		throw new Error('Error fetching Breaking Bad characters');
 	});
 };
+
+export const getCharactersFiltered = async ({ limit, offset }) => {
+	const url = `${BASE_URL}/characters?limit=${limit}&offset=${offset}`;
+	return fetch(url).then((res) => {
+		if (res.ok) return res.json();
+		throw new Error('Error fetching Breaking Bad characters');
+	});
+};
