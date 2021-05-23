@@ -1,5 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
+import CharacterItem from 'components/CharacterItem';
 import LoadingSpinner from 'components/LoadingSpinner';
 import usePaginationHttp from 'hooks/use-paginationHttp';
 import { getCharactersFiltered } from 'services/breakingBad';
@@ -17,15 +18,18 @@ const Characters = () => {
 
 	if (currentPage === 1 && filteredItems.length === 0) {
 		return (
-			<h4>No hay personajes para mostrar, posiblemente no tienes internet</h4>
+			<h4>
+				No hay personajes para mostrar, posiblemente no tienes conexión a
+				internet
+			</h4>
 		);
 	}
 
 	return (
 		<>
-			<ul>
+			<ul className={styles.list}>
 				{filteredItems.map((character) => (
-					<li key={character['char_id']}>{character.name}</li>
+					<CharacterItem key={character['char_id']} character={character} />
 				))}
 			</ul>
 			<div className={styles.actions}>
