@@ -5,9 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BookstoreQuotes from 'components/BookstoreQuotes';
 import PropTypes from 'prop-types';
 import React from 'react';
+import BookstoreQuotes from './BookstoreQuotes';
 
 const useStyles = makeStyles((theme) => ({
 	details: {

@@ -47,6 +47,13 @@ export default function useHttp(reqFunc) {
 		loading: false,
 		error: null,
 	});
+	const isMounted = React.useRef(true);
+
+	React.useEffect(() => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, []);
 
 	const sendRequest = React.useCallback(
 		async (params) => {
@@ -55,10 +62,12 @@ export default function useHttp(reqFunc) {
 			});
 			try {
 				const res = await reqFunc(params);
-				dispatch({
-					type: SUCCESS_ACTION,
-					responseData: res,
-				});
+				if (isMounted.current) {
+					dispatch({
+						type: SUCCESS_ACTION,
+						responseData: res,
+					});
+				}
 			} catch (err) {
 				dispatch({
 					type: ERROR_ACTION,
