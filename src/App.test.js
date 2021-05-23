@@ -24,7 +24,7 @@ describe('App Component', () => {
 			</Router>
 		);
 
-		expect(history.location.pathname).toBe('/');
+		expect(history.location.pathname).toBe('/characters');
 	});
 
 	test('render a list of characters on the home page with paginator', async () => {

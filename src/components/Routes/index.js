@@ -10,11 +10,11 @@ export default function Routes() {
 			<Route path="/bookstores" exact>
 				<Bookstore />
 			</Route>
-			<Route path="/" exact>
+			<Route path="/characters">
 				<Home />
 			</Route>
 			<Route path="*">
-				<Redirect to="/" />
+				<Redirect to="/characters" />
 			</Route>
 		</Switch>
 	);
