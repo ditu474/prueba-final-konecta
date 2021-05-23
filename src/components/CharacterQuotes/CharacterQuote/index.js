@@ -11,20 +11,23 @@ const CharacterQuote = ({ quote }) => {
 	const history = useHistory();
 
 	const optionsElements = (bookstores, quote) => {
-		const optEl = [
-			{
-				name: 'Detalles',
-				action: () => {},
-			},
-		];
+		const elements = [];
 		bookstores.forEach((bookstore) => {
-			optEl.push({
+			elements.push({
 				name: `Añadir a ${bookstore.name}`,
 				action: () =>
 					addQuote({ id: quote['quote_id'], quote: quote.quote }, bookstore.id),
 			});
 		});
-		return optEl;
+		if (elements.length === 0) {
+			elements.push({
+				name: 'Crear librería',
+				action: () => {
+					history.push('bookstores');
+				},
+			});
+		}
+		return elements;
 	};
 
 	const handleRateClick = () => {

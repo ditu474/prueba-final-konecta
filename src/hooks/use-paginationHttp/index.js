@@ -4,7 +4,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const usePaginationHttp = (apiCall, maxElementsPerPage) => {
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const [currentPage, setCurrentPage] = React.useState(null);
 	const { response, loading, error, sendRequest } = useHttp(apiCall);
 	const { enqueueSnackbar } = useSnackbar();
 	const history = useHistory();
@@ -23,10 +23,12 @@ const usePaginationHttp = (apiCall, maxElementsPerPage) => {
 	}, [history, location.search]);
 
 	React.useEffect(() => {
-		sendRequest({
-			limit: maxElementsPerPage,
-			offset: (currentPage - 1) * maxElementsPerPage,
-		});
+		if (currentPage && currentPage > 0) {
+			sendRequest({
+				limit: maxElementsPerPage,
+				offset: (currentPage - 1) * maxElementsPerPage,
+			});
+		}
 	}, [currentPage, maxElementsPerPage, sendRequest]);
 
 	React.useEffect(() => {
