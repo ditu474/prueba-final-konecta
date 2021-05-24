@@ -1,11 +1,13 @@
 import { Button } from '@material-ui/core';
 import LoadingSpinner from 'components/LoadingSpinner';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 
 const FiltersForm = React.lazy(() => import('./FiltersForm'));
 
 const AdvanceFilters = () => {
 	const [displayFilters, setDisplayFilters] = React.useState(false);
+	const { enqueueSnackbar } = useSnackbar();
 
 	const openFiltersHandler = () => {
 		setDisplayFilters(true);
@@ -16,6 +18,10 @@ const AdvanceFilters = () => {
 	};
 
 	const handleSearch = (searchQuery) => {
+		if (Object.keys(searchQuery).length === 0) {
+			enqueueSnackbar('El formulario está vacío', { variant: 'error' });
+			return;
+		}
 		console.log(searchQuery);
 	};
 
