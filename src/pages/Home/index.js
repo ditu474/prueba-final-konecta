@@ -3,6 +3,9 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 
 const AdvanceFilters = React.lazy(() => import('components/AdvanceFilters'));
 const Characters = React.lazy(() => import('components/Characters'));
+const FilteredCharacters = React.lazy(() =>
+	import('components/FilteredCharacters')
+);
 
 const Home = () => {
 	const { path } = useRouteMatch();
@@ -20,7 +23,7 @@ const Home = () => {
 					<Characters />
 				</Route>
 				<Route path={`${path}/filtered`} exact>
-					<div>Filtered Characters</div>
+					<FilteredCharacters />
 				</Route>
 				<Route path="*">
 					<Redirect to="/characters" />

@@ -2,12 +2,15 @@ import { Button } from '@material-ui/core';
 import LoadingSpinner from 'components/LoadingSpinner';
 import { useSnackbar } from 'notistack';
 import React from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 const FiltersForm = React.lazy(() => import('./FiltersForm'));
 
 const AdvanceFilters = () => {
 	const [displayFilters, setDisplayFilters] = React.useState(false);
 	const { enqueueSnackbar } = useSnackbar();
+	const history = useHistory();
+	const { path } = useRouteMatch();
 
 	const openFiltersHandler = () => {
 		setDisplayFilters(true);
@@ -18,11 +21,20 @@ const AdvanceFilters = () => {
 	};
 
 	const handleSearch = (searchQuery) => {
-		if (Object.keys(searchQuery).length === 0) {
+		const queryKeys = Object.keys(searchQuery);
+		if (queryKeys.length === 0) {
 			enqueueSnackbar('El formulario está vacío', { variant: 'error' });
 			return;
 		}
-		console.log(searchQuery);
+		let searchURL = '?';
+		queryKeys.forEach((key) => {
+			if (searchURL !== '?') searchURL += '&';
+			searchURL += `${key}=${searchQuery[key]}`;
+		});
+		history.push({
+			pathname: `${path}/filtered`,
+			search: searchURL,
+		});
 	};
 
 	return (
