@@ -27,7 +27,7 @@ const Characters = () => {
 
 	return (
 		<>
-			<ul className={styles.list}>
+			<ul className="list">
 				{filteredItems.map((character) => (
 					<CharacterItem key={character['char_id']} character={character} />
 				))}
