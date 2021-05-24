@@ -1,4 +1,4 @@
-import { Card, Divider, List, ListItem, ListItemText } from '@material-ui/core';
+import { Card, Divider, List, ListItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
@@ -18,8 +18,8 @@ const CommentList = ({ comments }) => {
 				<List>
 					{comments.map((comment) => (
 						<>
-							<ListItem key={comment.id} button>
-								<ListItemText primary={comment.comment} />
+							<ListItem key={comment.id}>
+								<p>{comment.comment}</p>
 							</ListItem>
 							<Divider />
 						</>
