@@ -1,4 +1,4 @@
-import { Card, Divider, List, ListItem } from '@material-ui/core';
+import { Card, Divider, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
@@ -17,12 +17,15 @@ const CommentList = ({ comments }) => {
 			<Card variant="outlined">
 				<List>
 					{comments.map((comment) => (
-						<>
-							<ListItem key={comment.id}>
-								<p>{comment.comment}</p>
+						<div key={comment.id}>
+							<ListItem button>
+								<ListItemText
+									style={{ overflowWrap: 'break-word' }}
+									primary={comment.comment}
+								/>
 							</ListItem>
 							<Divider />
-						</>
+						</div>
 					))}
 				</List>
 			</Card>
