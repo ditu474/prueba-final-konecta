@@ -51,6 +51,5 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^6.0.0"
-  },
-  "homepage": "https://ditu474.github.io/prueba-final-konecta"
+  }
 }
