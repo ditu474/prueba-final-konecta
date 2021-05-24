@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { getQuoteComments, saveQuoteComment } from 'services/quoteComments';
 import AddCommentForm from './AddCommentForm';
+import CommentList from './CommentList';
 
 const QuoteComments = ({ quoteId }) => {
 	const [comments, setComments] = React.useState([]);
@@ -23,16 +24,12 @@ const QuoteComments = ({ quoteId }) => {
 	return (
 		<div
 			style={{
-				marginTop: '2rem',
+				margin: '2rem 0',
 			}}
 			className="center-column-childs"
 		>
 			<AddCommentForm onAddComment={addCommentHandler} />
-			<ul>
-				{comments.map((comment) => (
-					<li key={comment.id}>{comment.comment}</li>
-				))}
-			</ul>
+			<CommentList comments={comments} />
 		</div>
 	);
 };
