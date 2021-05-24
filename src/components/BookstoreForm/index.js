@@ -15,7 +15,7 @@ const nameValidator = (name) => {
 		return 'Debes ingresar un nombre';
 	}
 	if (!validator.isAlpha(name, 'es-ES', { ignore: ' -' })) {
-		return 'Solo letras';
+		return 'Sólo ingrese letras';
 	}
 	if (name.length > 15) {
 		return 'Máximo 15 caracteres';

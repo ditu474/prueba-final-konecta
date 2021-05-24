@@ -10,7 +10,7 @@ export const initialValues = {
 };
 
 const alphaValidator = (str) => {
-	return !validator.isAlpha(str, 'en-US', { ignore: ' -' });
+	return !validator.isAlpha(str, 'es-ES', { ignore: ' -' });
 };
 
 const birthdayValidator = (birthday) => {
@@ -20,22 +20,22 @@ const birthdayValidator = (birthday) => {
 export const validateForm = (values) => {
 	const errors = {};
 	if (!!values.name && alphaValidator(values.name)) {
-		errors.name = 'Sólo ingrese letras y en inglés';
+		errors.name = 'Sólo ingrese letras';
 	}
 	if (!!values.birtday && birthdayValidator(values.birthday)) {
 		errors.birthday = 'Fecha inválida';
 	}
 	if (!!values.occupation && alphaValidator(values.occupation)) {
-		errors.occupation = 'Sólo ingrese letras y en inglés';
+		errors.occupation = 'Sólo ingrese letras';
 	}
 	if (!!values.status && alphaValidator(values.status)) {
-		errors.status = 'Sólo ingrese letras y en inglés';
+		errors.status = 'Sólo ingrese letras';
 	}
 	if (!!values.nickname && alphaValidator(values.nickname)) {
-		errors.nickname = 'Sólo ingrese letras y en inglés';
+		errors.nickname = 'Sólo ingrese letras';
 	}
 	if (!!values.portrayed && alphaValidator(values.portrayed)) {
-		errors.portrayed = 'Sólo ingrese letras y en inglés';
+		errors.portrayed = 'Sólo ingrese letras';
 	}
 	return errors;
 };
