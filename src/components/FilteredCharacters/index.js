@@ -7,10 +7,10 @@ const FilteredCharacters = () => {
 	const history = useHistory();
 	const { path } = useRouteMatch();
 	const location = useLocation();
-    const [query, setQuery] = React.useState({});
+	const [query, setQuery] = React.useState({});
 
-		React.useEffect(() => {
-            setQuery(queryString.parse(location.search))
+	React.useEffect(() => {
+		setQuery(queryString.parse(location.search));
 	}, [location.search]);
 
 	const backToMainHandler = () => {
@@ -24,9 +24,13 @@ const FilteredCharacters = () => {
 			<Button variant="contained" color="primary" onClick={backToMainHandler}>
 				Limpiar busqueda
 			</Button>
-            <ul>
-                {Object.keys(query).map(key => <li key={key}>{key}: {query[key]}</li>)}
-            </ul>
+			<ul>
+				{Object.keys(query).map((key) => (
+					<li key={key}>
+						{key}: {query[key]}
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 };
