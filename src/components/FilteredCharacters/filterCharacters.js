@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 const filterListByKey = (list, key, compareTo) => {
 	return list.filter((element) =>
 		element[key].toLowerCase().includes(compareTo.toLowerCase())
@@ -13,10 +15,12 @@ const filterList = (characters, filters) => {
 	const birthday = filters.birthday;
 	if (!!birthday) {
 		filteredCharacters = filteredCharacters.filter((character) => {
-			const characterTime = new Date(character.birthday).getTime();
-			const filterTime = new Date(birthday).getTime();
-			console.log(character.name, character.birthday, birthday);
-			return characterTime === filterTime;
+			const characterDate = new Date(character.birthday);
+			if (!characterDate) return false;
+
+			const characterTime = DateTime.fromJSDate(characterDate);
+			const filterTime = DateTime.fromISO(birthday);
+			return characterTime.equals(filterTime);
 		});
 	}
 	const occupation = filters.occupation;
