@@ -20,15 +20,11 @@ const nameValidator = (name) => {
 	if (name.length > 15) {
 		return 'Máximo 15 caracteres';
 	}
-	return null;
+	return '';
 };
 
 const useStyles = makeStyles((theme) => ({
 	form: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		flexDirection: 'column',
 		width: '100%',
 		marginBottom: theme.spacing(2),
 	},
@@ -73,7 +69,7 @@ const BookstoreForm = ({ onAddBookstore }) => {
 				<form
 					name="NewBookstore"
 					onSubmit={handleSubmit}
-					className={classes.form}
+					className={`${classes.form} center-column-childs`}
 				>
 					<TextField
 						variant="outlined"

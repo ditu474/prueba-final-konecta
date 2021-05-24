@@ -1,12 +1,8 @@
+import { getSavedResource } from 'services/localStorage';
+
 const BOOKSTORES_KEY = 'bookstores';
 
-export const getSavedBookstores = () => {
-	const savedBookstores = localStorage.getItem(BOOKSTORES_KEY);
-	if (!savedBookstores) {
-		return [];
-	}
-	return JSON.parse(savedBookstores);
-};
+export const getSavedBookstores = () => getSavedResource(BOOKSTORES_KEY);
 
 export const saveBookstores = (bookstores) => {
 	try {

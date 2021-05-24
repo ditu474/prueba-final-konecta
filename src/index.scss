@@ -22,3 +22,10 @@ body {
 .active-route {
   border-bottom: 2px solid white;
 }
+
+.center-column-childs {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

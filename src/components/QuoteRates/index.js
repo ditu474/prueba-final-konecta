@@ -1,16 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactStars from 'react-rating-stars-component';
-import { useParams } from 'react-router-dom';
 import { getQuoteRate, saveQuoteRates } from 'services/quoteRate';
 import RateList from './RateList';
 
-const QuoteRates = () => {
-	const { id } = useParams();
+const QuoteRates = ({ quoteId }) => {
 	const [quoteRates, setQuoteRates] = React.useState([]);
 	const [rateAverage, setRateAverage] = React.useState(0);
 
 	React.useEffect(() => {
-		const savedQuoteRates = getQuoteRate(id);
+		const savedQuoteRates = getQuoteRate(quoteId);
 		setQuoteRates(savedQuoteRates);
 
 		if (savedQuoteRates.length > 0) {
@@ -35,17 +34,11 @@ const QuoteRates = () => {
 		calculateNewRate(newRating);
 		const rate = { id: Math.random() + newRating, rate: newRating };
 		setQuoteRates((prevQuoteRates) => [rate, ...prevQuoteRates]);
-		saveQuoteRates(id, rate);
+		saveQuoteRates(quoteId, rate);
 	};
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-			}}
-		>
+		<div className="center-column-childs">
 			<h4>Promedio: {rateAverage.toFixed(1)}</h4>
 			<ReactStars
 				count={5}
@@ -57,6 +50,10 @@ const QuoteRates = () => {
 			<RateList rates={quoteRates} />
 		</div>
 	);
+};
+
+QuoteRates.propTypes = {
+	quoteId: PropTypes.number.isRequired,
 };
 
 export default QuoteRates;

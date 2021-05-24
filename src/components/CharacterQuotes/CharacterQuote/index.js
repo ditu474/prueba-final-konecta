@@ -41,10 +41,8 @@ const CharacterQuote = ({ quote }) => {
 	return (
 		<ListItem
 			divider
+			className="center-column-childs"
 			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
 				alignItems: 'start',
 			}}
 		>

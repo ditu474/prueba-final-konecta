@@ -1,29 +1,13 @@
+import { getSavedResource, saveResource } from 'services/localStorage';
+
 const QUOTE_RATE_KEY = 'quoteRate';
 
-const getSavedQuoteRates = () => {
-	const savedQuoteRates = localStorage.getItem(QUOTE_RATE_KEY);
-	if (!savedQuoteRates) {
-		return [];
-	}
-	return JSON.parse(savedQuoteRates);
-};
-
-const saveQuoteRatesLocally = (quoteRates) => {
-	try {
-		localStorage.setItem(QUOTE_RATE_KEY, JSON.stringify(quoteRates));
-	} catch (err) {
-		console.error('Error saving quoteRates: ', err.message);
-	}
-};
-
 export const getQuoteRate = (quoteId) => {
-	const quoteRates = getSavedQuoteRates();
+	const quoteRates = getSavedResource(QUOTE_RATE_KEY);
 
 	if (quoteRates.length === 0) return [];
 
-	const quoteRateObj = quoteRates.find(
-		(quoteRate) => quoteRate.id === String(quoteId)
-	);
+	const quoteRateObj = quoteRates.find((quoteRate) => quoteRate.id === quoteId);
 	if (!quoteRateObj) {
 		return [];
 	}
@@ -31,20 +15,21 @@ export const getQuoteRate = (quoteId) => {
 };
 
 export const saveQuoteRates = (quoteId, quoteRate) => {
-	const quoteRates = getSavedQuoteRates();
+	const quoteRates = getSavedResource(QUOTE_RATE_KEY);
 	if (quoteRates.length === 0) {
-		saveQuoteRatesLocally([{ id: quoteId, rates: [quoteRate] }]);
+		saveResource([{ id: quoteId, rates: [quoteRate] }], QUOTE_RATE_KEY);
 		return;
 	}
 
-	const quoteRateObj = quoteRates.find(
-		(quoteRate) => quoteRate.id === String(quoteId)
-	);
+	const quoteRateObj = quoteRates.find((quoteRate) => quoteRate.id === quoteId);
 	if (!quoteRateObj) {
-		saveQuoteRatesLocally([{ id: quoteId, rates: [quoteRate] }, ...quoteRates]);
+		saveResource(
+			[{ id: quoteId, rates: [quoteRate] }, ...quoteRates],
+			QUOTE_RATE_KEY
+		);
 		return;
 	}
 
 	quoteRateObj.rates = [quoteRate, ...quoteRateObj.rates];
-	saveQuoteRatesLocally(quoteRates);
+	saveResource(quoteRates, QUOTE_RATE_KEY);
 };
