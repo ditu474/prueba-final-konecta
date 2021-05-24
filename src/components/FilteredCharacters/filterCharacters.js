@@ -15,6 +15,7 @@ const filterList = (characters, filters) => {
 		filteredCharacters = filteredCharacters.filter((character) => {
 			const characterTime = new Date(character.birthday).getTime();
 			const filterTime = new Date(birthday).getTime();
+			console.log(character.name, character.birthday, birthday);
 			return characterTime === filterTime;
 		});
 	}

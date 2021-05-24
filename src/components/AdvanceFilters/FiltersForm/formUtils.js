@@ -22,7 +22,7 @@ export const validateForm = (values) => {
 	if (!!values.name && alphaValidator(values.name)) {
 		errors.name = 'Sólo ingrese letras';
 	}
-	if (!!values.birtday && birthdayValidator(values.birthday)) {
+	if (!!values.birthday && birthdayValidator(values.birthday)) {
 		errors.birthday = 'Fecha inválida';
 	}
 	if (!!values.occupation && alphaValidator(values.occupation)) {
@@ -50,7 +50,7 @@ const cleanValues = (values) => {
 	const name = trimValue(values.name);
 	if (!!name) newValues.name = name;
 	const birthday = trimValue(values.birthday);
-	if (!!birthday) newValues.birtday = birthday;
+	if (!!birthday) newValues.birthday = birthday;
 	const occupation = trimValue(values.occupation);
 	if (!!occupation) newValues.occupation = occupation;
 	const status = trimValue(values.status);

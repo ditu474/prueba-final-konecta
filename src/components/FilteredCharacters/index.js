@@ -1,5 +1,7 @@
 import { Button } from '@material-ui/core';
+import CharactersList from 'components/CharactersList';
 import LoadingSpinenr from 'components/LoadingSpinner';
+import Paginator from 'components/Paginator';
 import useHttp from 'hooks/use-http';
 import usePaginationList from 'hooks/use-paginationList';
 import queryString from 'query-string';
@@ -17,10 +19,13 @@ const FilteredCharacters = () => {
 		loading,
 		sendRequest,
 	} = useHttp(getBreakingBadCharacters);
-	const { listFiltered: listToDisplay } = usePaginationList(
-		filteredCharacters,
-		MAX_ELEMENTS_PER_PAGE
-	);
+	const {
+		listFiltered: listToDisplay,
+		goToNextPage,
+		currentPage,
+		goToPrevPage,
+		nextPageExists,
+	} = usePaginationList(filteredCharacters, MAX_ELEMENTS_PER_PAGE);
 	const history = useHistory();
 	const { path } = useRouteMatch();
 	const location = useLocation();
@@ -37,28 +42,41 @@ const FilteredCharacters = () => {
 		}
 	}, [location.search, characters]);
 
-	const backToMainHandler = () => {
+	const backToHomeHandler = () => {
 		history.push({
 			pathname: `${path}/characters`,
 		});
 	};
 
+	const changePageHandler = (direction) => () => {
+		window.scroll({
+			top: document.body,
+			left: 0,
+			behavior: 'smooth',
+		});
+
+		if (direction === 'next') goToNextPage();
+		if (direction === 'back') goToPrevPage();
+	};
+
 	let content;
 	if (loading) content = <LoadingSpinenr />;
-	else
+	if (!!listToDisplay && listToDisplay.length > 0)
 		content = (
-			<ul>
-				{listToDisplay.map((character) => (
-					<li key={character.id}>
-						{character.name}: {character.birthday}
-					</li>
-				))}
-			</ul>
+			<Paginator
+				onBackPage={changePageHandler('back')}
+				onNextPage={changePageHandler('next')}
+				currentPage={currentPage || 1}
+				nextPageDisable={nextPageExists}
+			>
+				<CharactersList characters={listToDisplay} />
+			</Paginator>
 		);
+	else content = <h3>No se han encontrado resultados</h3>;
 
 	return (
 		<div style={{ margin: '1rem 0' }} className="center-column-childs">
-			<Button variant="contained" color="primary" onClick={backToMainHandler}>
+			<Button variant="contained" color="primary" onClick={backToHomeHandler}>
 				Limpiar busqueda
 			</Button>
 			{content}
