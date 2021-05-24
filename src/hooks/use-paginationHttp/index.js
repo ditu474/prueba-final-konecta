@@ -1,26 +1,13 @@
 import useHttp from 'hooks/use-http';
+import usePaginationByParam from 'hooks/use-paginationByParam';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 
 const usePaginationHttp = (apiCall, maxElementsPerPage) => {
-	const [currentPage, setCurrentPage] = React.useState(null);
 	const { response, loading, error, sendRequest } = useHttp(apiCall);
+	const { currentPage, goToNextPage, goToPrevPage, goToPage } =
+		usePaginationByParam();
 	const { enqueueSnackbar } = useSnackbar();
-	const history = useHistory();
-	const location = useLocation();
-
-	React.useEffect(() => {
-		const page = new URLSearchParams(location.search).get('page');
-		const pageNumber = +page;
-		if (pageNumber && pageNumber > 0) {
-			setCurrentPage(pageNumber);
-		} else {
-			history.push({
-				search: `?page=1`,
-			});
-		}
-	}, [history, location.search]);
 
 	React.useEffect(() => {
 		if (currentPage && currentPage > 0) {
@@ -41,25 +28,9 @@ const usePaginationHttp = (apiCall, maxElementsPerPage) => {
 
 	React.useEffect(() => {
 		if (response && response.length === 0) {
-			history.push({
-				search: `?page=1`,
-			});
+			goToPage(1);
 		}
-	}, [response, history]);
-
-	const goToNextPage = () => {
-		const nextPage = currentPage + 1;
-		history.push({
-			search: `?page=${nextPage}`,
-		});
-	};
-
-	const goToPrevPage = () => {
-		const nextPage = currentPage - 1;
-		history.push({
-			search: `?page=${nextPage}`,
-		});
-	};
+	}, [goToPage, response]);
 
 	const filteredItems = response || [];
 

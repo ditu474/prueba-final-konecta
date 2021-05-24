@@ -1,12 +1,10 @@
-import IconButton from '@material-ui/core/IconButton';
-import { ArrowBack, ArrowForward } from '@material-ui/icons';
+import CharactersList from 'components/CharactersList';
 import LoadingSpinner from 'components/LoadingSpinner';
+import Paginator from 'components/Paginator';
 import usePaginationHttp from 'hooks/use-paginationHttp';
 import { getCharactersFiltered } from 'services/breakingBad';
-import CharacterItem from './CharacterItem';
-import styles from './Characters.module.scss';
 
-const MAX_ELEMENTS_PER_PAGE = '5';
+const MAX_ELEMENTS_PER_PAGE = 5;
 
 const Characters = () => {
 	const { currentPage, goToNextPage, goToPrevPage, filteredItems, loading } =
@@ -26,32 +24,14 @@ const Characters = () => {
 	}
 
 	return (
-		<>
-			<ul className={styles.list}>
-				{filteredItems.map((character) => (
-					<CharacterItem key={character['char_id']} character={character} />
-				))}
-			</ul>
-			<div className={styles.actions}>
-				<IconButton
-					aria-label="Previous page"
-					onClick={goToPrevPage}
-					disabled={currentPage < 2}
-					color="secondary"
-				>
-					<ArrowBack />
-				</IconButton>
-				<span arial-label="Page number">{currentPage}</span>
-				<IconButton
-					aria-label="Next page"
-					onClick={goToNextPage}
-					disabled={filteredItems.length < MAX_ELEMENTS_PER_PAGE}
-					color="secondary"
-				>
-					<ArrowForward />
-				</IconButton>
-			</div>
-		</>
+		<Paginator
+			onBackPage={goToPrevPage}
+			onNextPage={goToNextPage}
+			currentPage={currentPage || 1}
+			nextPageDisable={filteredItems.length < MAX_ELEMENTS_PER_PAGE}
+		>
+			<CharactersList characters={filteredItems} />
+		</Paginator>
 	);
 };
 
