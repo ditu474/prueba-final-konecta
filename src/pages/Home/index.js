@@ -8,11 +8,8 @@ const Home = () => {
 
 	return (
 		<div
+			className="center-column-childs"
 			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'center',
 				marginBottom: '2rem',
 			}}
 		>
