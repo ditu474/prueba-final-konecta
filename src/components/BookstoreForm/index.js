@@ -70,6 +70,7 @@ const BookstoreForm = ({ onAddBookstore }) => {
 					name="NewBookstore"
 					onSubmit={handleSubmit}
 					className={`${classes.form} center-column-childs`}
+					autoComplete="off"
 				>
 					<TextField
 						variant="outlined"
