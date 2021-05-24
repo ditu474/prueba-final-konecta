@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 
+const AdvanceFilters = React.lazy(() => import('components/AdvanceFilters'));
 const Characters = React.lazy(() => import('components/Characters'));
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
 				marginBottom: '2rem',
 			}}
 		>
-			<button>Filtros Avanzados</button>
+			<AdvanceFilters />
 			<Switch>
 				<Route path={`${path}`} exact>
 					<Characters />
