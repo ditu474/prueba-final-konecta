@@ -1,6 +1,7 @@
 import BookstoreCtx from 'context/bookstore';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Swal from 'sweetalert2';
 import BookstoreQuote from './BookstoreQuote';
 
 const moveMenuElements = (bookstores, moveQuoteFunc, quoteId, fromId) => {
@@ -21,7 +22,19 @@ const moveMenuElements = (bookstores, moveQuoteFunc, quoteId, fromId) => {
 const BookstoreQuotes = ({ quotes, bookstoreId }) => {
 	const { bookstores, deleteQuote, moveQuote } = React.useContext(BookstoreCtx);
 
-	const deleteQuoteHandler = (quoteId) => deleteQuote(quoteId, bookstoreId);
+	const deleteQuoteHandler = (quoteId) => {
+		Swal.fire({
+			title: 'Seguro que quieres eliminar la frase?',
+			showCancelButton: true,
+			confirmButtonText: 'Confirmar',
+			cancelButtonText: 'Cancelar',
+			confirmButtonColor: '#388e3c',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deleteQuote(quoteId, bookstoreId);
+			}
+		});
+	};
 
 	const getMoveMenuElements = (quoteId) =>
 		moveMenuElements(bookstores, moveQuote, quoteId, bookstoreId);
