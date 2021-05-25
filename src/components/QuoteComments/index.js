@@ -25,6 +25,7 @@ const QuoteComments = ({ quoteId }) => {
 		<div
 			style={{
 				margin: '2rem 0',
+				display: 'contents',
 			}}
 			className="center-column-childs"
 		>
