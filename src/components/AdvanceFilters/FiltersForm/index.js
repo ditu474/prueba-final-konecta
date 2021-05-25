@@ -117,7 +117,7 @@ const FiltersForm = ({ onSearch, onCloseFilters }) => {
 						<div className={styles['center-row']}>
 							<Button
 								variant="contained"
-								color="primary"
+								color="secondary"
 								disabled={isSubmitting}
 								type="submit"
 							>
@@ -132,7 +132,7 @@ const FiltersForm = ({ onSearch, onCloseFilters }) => {
 							</Button>
 							<Button
 								variant="contained"
-								color="secondary"
+								color="primary"
 								onClick={onCloseFilters}
 							>
 								Ocultar filtros
