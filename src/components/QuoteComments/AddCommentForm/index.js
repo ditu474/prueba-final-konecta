@@ -47,6 +47,7 @@ const AddCommentForm = ({ onAddComment }) => {
 					name="NewComment"
 					onSubmit={handleSubmit}
 					className="center-column-childs"
+					style={{ marginTop: '1rem' }}
 				>
 					<TextField
 						multiline

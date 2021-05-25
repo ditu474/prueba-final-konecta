@@ -12,7 +12,10 @@ const useStyles = makeStyles({
 const CommentList = ({ comments }) => {
 	const classes = useStyles();
 	return (
-		<div className={`${classes.root} container`}>
+		<div
+			className={`${classes.root} container`}
+			style={{ marginBottom: '2rem' }}
+		>
 			<h3>Comentarios ({comments.length})</h3>
 			<Card variant="outlined">
 				<List>
@@ -20,6 +23,7 @@ const CommentList = ({ comments }) => {
 						<div key={comment.id}>
 							<ListItem button>
 								<ListItemText
+									style={{ overflowWrap: 'break-word' }}
 									primary={comment.comment}
 								/>
 							</ListItem>
