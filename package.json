@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^6.0.0"
+    "@testing-library/react-hooks": "^6.0.0",
+    "redux-mock-store": "^1.5.4"
   }
 }
