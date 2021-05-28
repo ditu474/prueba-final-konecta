@@ -25,6 +25,15 @@ const bookstoreSlice = createSlice({
 			const bookstore = state.bookstores.find(
 				(bookstore) => bookstore.id === payload.bookstoreId
 			);
+
+			const quoteInBookstore = bookstore.quotes.find(
+				(quote) => quote.name === payload.quote.name
+			);
+			if (!!quoteInBookstore) {
+				state.error = 'Ya existe la frase en la librería';
+				return;
+			}
+
 			bookstore.quotes.push(payload.quote);
 		},
 	},

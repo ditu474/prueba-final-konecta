@@ -147,6 +147,30 @@ describe('Bookstore Slice', () => {
 				};
 				expect(newState).toEqual(expectedState);
 			});
+
+			it('should set an error if the quote already exists in the bookstore', () => {
+				const initialState = {
+					bookstores: [
+						{
+							id: 22,
+							name: 'Hello',
+							quotes: [{ id: 10, quote: 'test quote' }],
+						},
+					],
+					error: null,
+				};
+
+				const newState = bookstoreSlice.reducer(
+					initialState,
+					addQuote({ quote: { id: 20, quote: 'test quote' }, bookstoreId: 22 })
+				);
+
+				const expectedState = {
+					...initialState,
+					error: 'Ya existe la frase en la librería',
+				};
+				expect(newState).toEqual(expectedState);
+			});
 		});
 	});
 });
