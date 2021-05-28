@@ -1,4 +1,7 @@
-import { getBreakingBadCharacters, getCharactersFiltered } from '.';
+import {
+	getBreakingBadCharacters,
+	getCharactersFiltered,
+} from 'services/breakingBad';
 
 describe('Breaking Bad service', () => {
 	afterEach(() => {

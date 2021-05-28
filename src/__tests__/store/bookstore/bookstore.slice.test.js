@@ -43,7 +43,7 @@ describe('Bookstore Slice', () => {
 			// el slice antes de hacer el mock
 			// si se hace el import en la parte superior del archivo, el slice se ejecuta
 			// y hace la llamada al servicio, y esto no es lo que se quiere
-			const bookstoreSlice = require('.').default;
+			const bookstoreSlice = require('store/bookstore').default;
 			const result = bookstoreSlice.reducer(undefined, () => {});
 
 			expect(result).toEqual({
@@ -57,7 +57,7 @@ describe('Bookstore Slice', () => {
 		let bookstoreSlice, addBookstore, addQuote;
 
 		beforeAll(() => {
-			bookstoreSlice = require('.').default;
+			bookstoreSlice = require('store/bookstore').default;
 			addBookstore = bookstoreSlice.actions.addBookstore;
 			addQuote = bookstoreSlice.actions.addQuote;
 		});

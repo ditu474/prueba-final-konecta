@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import App from 'App';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, Router } from 'react-router-dom';
-import App from './App';
 
 describe('App Component', () => {
 	test('renders appbar', () => {

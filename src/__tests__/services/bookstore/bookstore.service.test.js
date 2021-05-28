@@ -1,4 +1,4 @@
-import { getSavedBookstores, saveBookstores } from '.';
+import { getSavedBookstores, saveBookstores } from 'services/bookstore';
 
 describe('Bookstore Service', () => {
 	test('return bookstores saved locally', () => {

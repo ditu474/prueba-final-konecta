@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import useHttp from '.';
+import useHttp from 'hooks/use-http';
 
 describe('useHttp Hook', () => {
 	test('return initial values', () => {

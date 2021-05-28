@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useSnackbar } from 'notistack';
+import SnackbarProvider from 'providers/Snackbar';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import SnackbarProvider from '.';
 
 const TestComponent = () => {
 	const [numberOfSnackbars, setNumberOfSnackbars] = React.useState(1);

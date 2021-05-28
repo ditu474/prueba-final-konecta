@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BookstoreContext from 'context/bookstore';
+import BookstoreProvider from 'providers/Bookstore';
 import SnackbarProvider from 'providers/Snackbar';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import * as bookstoreService from 'services/bookstore';
-import BookstoreProvider from '.';
 
 const TestComponent = ({
 	onAddBookstore,

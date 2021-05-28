@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import MenuButton from '.';
+import MenuButton from 'components/MenuButton';
 
 describe('MenuButton Component', () => {
 	test('should display child', () => {

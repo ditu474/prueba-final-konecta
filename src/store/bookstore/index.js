@@ -45,6 +45,6 @@ const bookstoreSlice = createSlice({
 	},
 });
 
-export const { addBookstore } = bookstoreSlice.actions;
+export const { addBookstore, addQuote } = bookstoreSlice.actions;
 
 export default bookstoreSlice;

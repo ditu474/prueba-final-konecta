@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import Appbar from 'components/Appbar';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, Route, Router } from 'react-router';
-import Appbar from '.';
 
 describe('Appbar Component', () => {
 	test('render breaking bad logo', () => {

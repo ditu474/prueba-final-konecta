@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BookstoreCtx from 'context/bookstore';
-import Bookstore from '.';
+import Bookstore from 'pages/Bookstore';
 
 describe('Bookstore Page', () => {
 	test('display error message if user send form with blank input', async () => {
