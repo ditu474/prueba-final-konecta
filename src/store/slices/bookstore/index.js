@@ -10,6 +10,14 @@ const bookstoreSlice = createSlice({
 	initialState,
 	reducers: {
 		addBookstore: (state, { payload }) => {
+			const bookstore = state.bookstores.find(
+				(bookstore) => bookstore.name === payload.name
+			);
+			if (!!bookstore) {
+				state.error = `Ya existe una librería con el nombre ${payload.name}`;
+				return;
+			}
+
 			state.bookstores.push(payload);
 		},
 	},
