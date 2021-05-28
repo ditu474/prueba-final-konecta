@@ -14,7 +14,7 @@ describe('Bookstore Slice', () => {
 		});
 	});
 
-	describe('on addBookstore action', () => {
+	describe('addBookstore action', () => {
 		it('should dispatch the correct type and payload', () => {
 			const store = mockStore();
 			const newBookstore = { id: 10, name: 'Hello' };
@@ -39,6 +39,25 @@ describe('Bookstore Slice', () => {
 			const expectedState = {
 				bookstores: [{ id: 10, name: 'Hello' }],
 				error: null,
+			};
+			expect(newState).toEqual(expectedState);
+		});
+
+		it('should set an error if bookstore name already exists', () => {
+			const initialState = {
+				bookstores: [{ id: 22, name: 'Hello' }],
+				error: null,
+			};
+			const newBookstore = { id: 10, name: 'Hello' };
+
+			const newState = bookstoreSlice.reducer(
+				initialState,
+				addBookstore(newBookstore)
+			);
+
+			const expectedState = {
+				bookstores: [{ id: 22, name: 'Hello' }],
+				error: 'Ya existe una librería con el nombre Hello',
 			};
 			expect(newState).toEqual(expectedState);
 		});
