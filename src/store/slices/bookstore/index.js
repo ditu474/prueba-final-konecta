@@ -9,7 +9,9 @@ const bookstoreSlice = createSlice({
 	name: 'bookstore',
 	initialState,
 	reducers: {
-		addBookstore: () => {},
+		addBookstore: (state, { payload }) => {
+			state.bookstores.push(payload);
+		},
 	},
 });
 
