@@ -1,6 +1,7 @@
 import BookstoreCtx from 'context/bookstore';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import BookstoreQuote from './BookstoreQuote';
 
@@ -20,7 +21,8 @@ const moveMenuElements = (bookstores, moveQuoteFunc, quoteId, fromId) => {
 };
 
 const BookstoreQuotes = ({ quotes, bookstoreId }) => {
-	const { bookstores, deleteQuote, moveQuote } = React.useContext(BookstoreCtx);
+	const bookstores = useSelector((state) => state.bookstores);
+	const { deleteQuote, moveQuote } = React.useContext(BookstoreCtx);
 
 	const deleteQuoteHandler = (quoteId) => {
 		Swal.fire({

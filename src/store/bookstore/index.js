@@ -32,10 +32,10 @@ const bookstoreSlice = createSlice({
 			}
 
 			const quoteInBookstore = bookstore.quotes.find(
-				(quote) => quote.name === payload.quote.name
+				(quote) => quote.quote === payload.quote.quote
 			);
 			if (!!quoteInBookstore) {
-				state.error = 'Ya existe la frase en la librería';
+				state.error = 'La frase ya existe en la librería';
 				return;
 			}
 

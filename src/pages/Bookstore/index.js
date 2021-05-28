@@ -2,13 +2,16 @@ import BookstoreForm from 'components/BookstoreForm';
 import Bookstores from 'components/Bookstores';
 import bookStoreContext from 'context/bookstore';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBookstore } from 'store/bookstore';
 
 export default function Bookstore() {
-	const { addBookstore, bookstores, deleteBookstore } =
-		React.useContext(bookStoreContext);
+	const dispatch = useDispatch();
+	const bookstores = useSelector((state) => state.bookstores);
+	const { deleteBookstore } = React.useContext(bookStoreContext);
 
 	const newBookstoreHandler = (bookstoreName) => {
-		addBookstore(bookstoreName);
+		dispatch(addBookstore({ id: Math.random(), name: bookstoreName }));
 	};
 
 	const deleteBookstoreHandler = (bookstoreId) => {

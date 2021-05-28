@@ -1,24 +1,35 @@
 import { IconButton, ListItem, ListItemText } from '@material-ui/core';
 import { Message, MoreHoriz, StarBorderOutlined } from '@material-ui/icons';
 import MenuButton from 'components/MenuButton';
-import BookstoreCtx from 'context/bookstore';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { addQuote } from 'store/bookstore';
 
 const CharacterQuote = ({ quote }) => {
-	const { bookstores, addQuote } = React.useContext(BookstoreCtx);
+	const dispatch = useDispatch();
+	const bookstores = useSelector((state) => state.bookstores);
+
 	const history = useHistory();
 
-	const optionsElements = (bookstores, quote) => {
+	const optionsElements = () => {
 		const elements = [];
+
 		bookstores.forEach((bookstore) => {
 			elements.push({
 				name: `Añadir a ${bookstore.name}`,
-				action: () =>
-					addQuote({ id: quote['quote_id'], quote: quote.quote }, bookstore.id),
+				action: () => {
+					dispatch(
+						addQuote({
+							quote: { id: quote['quote_id'], quote: quote.quote },
+							bookstoreId: bookstore.id,
+						})
+					);
+				},
 			});
 		});
+
 		if (elements.length === 0) {
 			elements.push({
 				name: 'Crear librería',
@@ -27,6 +38,7 @@ const CharacterQuote = ({ quote }) => {
 				},
 			});
 		}
+
 		return elements;
 	};
 
@@ -54,7 +66,7 @@ const CharacterQuote = ({ quote }) => {
 				<IconButton aria-label="Comment" onClick={handleCommentsClick}>
 					<Message />
 				</IconButton>
-				<MenuButton elements={optionsElements(bookstores, quote)}>
+				<MenuButton elements={optionsElements()}>
 					<IconButton aria-label="Options">
 						<MoreHoriz />
 					</IconButton>
