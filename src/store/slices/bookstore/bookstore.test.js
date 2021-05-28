@@ -26,5 +26,21 @@ describe('Bookstore Slice', () => {
 			];
 			expect(actions).toEqual(expectedActions);
 		});
+
+		it('should set the state with a new bookstore', () => {
+			const initialState = { bookstores: [], error: null };
+			const newBookstore = { id: 10, name: 'Hello' };
+
+			const newState = bookstoreSlice.reducer(
+				initialState,
+				addBookstore(newBookstore)
+			);
+
+			const expectedState = {
+				bookstores: [{ id: 10, name: 'Hello' }],
+				error: null,
+			};
+			expect(newState).toEqual(expectedState);
+		});
 	});
 });
