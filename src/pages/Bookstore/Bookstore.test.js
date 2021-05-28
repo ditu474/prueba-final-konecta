@@ -110,7 +110,7 @@ describe('Bookstore Page', () => {
 		expect(screen.queryAllByLabelText('Delete Quote').length).toBe(2);
 	});
 
-	test('call deleteBookstore from provider with correct values', () => {
+	test.skip('call deleteBookstore from provider with correct values', () => {
 		const deleteBookstoreSpy = jest.fn();
 		render(
 			<BookstoreCtx.Provider
@@ -129,7 +129,7 @@ describe('Bookstore Page', () => {
 		expect(deleteBookstoreSpy).toHaveBeenCalledWith(3);
 	});
 
-	test('call deleteQuote from provider with correct values', () => {
+	test.skip('call deleteQuote from provider with correct values', () => {
 		const deleteQuoteSpy = jest.fn();
 		render(
 			<BookstoreCtx.Provider
