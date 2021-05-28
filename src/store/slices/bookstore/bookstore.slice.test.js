@@ -77,7 +77,7 @@ describe('Bookstore Slice', () => {
 			});
 
 			it('should set the state with a new bookstore', () => {
-				const initialState = { bookstores: [], error: null };
+				const initialState = { bookstores: [], error: 'Some error' };
 				const newBookstore = { id: 10, name: 'Hello' };
 
 				const newState = bookstoreSlice.reducer(
@@ -132,7 +132,7 @@ describe('Bookstore Slice', () => {
 			it('should add the quote to the bookstore', () => {
 				const initialState = {
 					bookstores: [{ id: 22, name: 'Hello', quotes: [] }],
-					error: null,
+					error: 'Some error',
 				};
 				const newQuote = { id: 10, quote: 'test quote' };
 
@@ -168,6 +168,24 @@ describe('Bookstore Slice', () => {
 				const expectedState = {
 					...initialState,
 					error: 'Ya existe la frase en la librería',
+				};
+				expect(newState).toEqual(expectedState);
+			});
+
+			it('should set an error if bookstore does not exists', () => {
+				const initialState = {
+					bookstores: [],
+					error: null,
+				};
+
+				const newState = bookstoreSlice.reducer(
+					initialState,
+					addQuote({ quote: { id: 20, quote: 'test quote' }, bookstoreId: 22 })
+				);
+
+				const expectedState = {
+					...initialState,
+					error: 'No existe la librería con ID 22',
 				};
 				expect(newState).toEqual(expectedState);
 			});
