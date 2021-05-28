@@ -19,9 +19,14 @@ const bookstoreSlice = createSlice({
 				return;
 			}
 
-			state.bookstores.push(payload);
+			state.bookstores.push({ ...payload, quotes: [] });
 		},
-		addQuote: () => {},
+		addQuote: (state, { payload }) => {
+			const bookstore = state.bookstores.find(
+				(bookstore) => bookstore.id === payload.bookstoreId
+			);
+			bookstore.quotes.push(payload.quote);
+		},
 	},
 });
 
