@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getSavedBookstores } from 'services/bookstore';
 
 const initialState = {
-	bookstores: [],
+	bookstores: getSavedBookstores(),
 	error: null,
 };
 

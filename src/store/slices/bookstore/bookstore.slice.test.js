@@ -1,23 +1,71 @@
 import createMockStore from 'redux-mock-store';
-import bookstoreSlice, { addBookstore } from '.';
+import * as bookstoreService from 'services/bookstore';
 
 describe('Bookstore Slice', () => {
 	const mockStore = createMockStore();
+	let getSavedBookstoresSpy;
+
+	beforeAll(() => {
+		getSavedBookstoresSpy = jest
+			.spyOn(bookstoreService, 'getSavedBookstores')
+			.mockReturnValue([]);
+	});
+
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
 
 	describe('given empty action and undefined state', () => {
 		it('should return the initial state', () => {
+			const savedBookstores = [
+				{
+					id: 10,
+					name: 'Mis Favoritos',
+					quotes: [
+						{
+							id: 1,
+							quote: 'quote 1',
+						},
+						{
+							id: 2,
+							quote: 'quote 2',
+						},
+					],
+				},
+				{
+					id: 20,
+					name: 'Graciosos',
+				},
+			];
+			getSavedBookstoresSpy.mockReturnValueOnce(savedBookstores);
+
+			// Se debe importar luego del mock, para que llame al mock y no se cargue
+			// el slice antes de hacer el mock
+			// si se hace el import en la parte superior del archivo, el slice se ejecuta
+			// y hace la llamada al servicio, y esto no es lo que se quiere
+			const bookstoreSlice = require('.').default;
 			const result = bookstoreSlice.reducer(undefined, () => {});
+
 			expect(result).toEqual({
-				bookstores: [],
+				bookstores: savedBookstores,
 				error: null,
 			});
 		});
 	});
 
 	describe('addBookstore action', () => {
+		let bookstoreSlice;
+		let addBookstore;
+
+		beforeAll(() => {
+			bookstoreSlice = require('.').default;
+			addBookstore = bookstoreSlice.actions.addBookstore;
+		});
+
 		it('should dispatch the correct type and payload', () => {
 			const store = mockStore();
 			const newBookstore = { id: 10, name: 'Hello' };
+
 			store.dispatch(addBookstore(newBookstore));
 
 			const actions = store.getActions();
