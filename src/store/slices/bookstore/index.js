@@ -21,6 +21,7 @@ const bookstoreSlice = createSlice({
 
 			state.bookstores.push(payload);
 		},
+		addQuote: () => {},
 	},
 });
 

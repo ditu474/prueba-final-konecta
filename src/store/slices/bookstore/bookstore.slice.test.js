@@ -110,4 +110,30 @@ describe('Bookstore Slice', () => {
 			expect(newState).toEqual(expectedState);
 		});
 	});
+
+	describe('addQuote action', () => {
+		let bookstoreSlice;
+		let addQuote;
+
+		beforeAll(() => {
+			bookstoreSlice = require('.').default;
+			addQuote = bookstoreSlice.actions.addQuote;
+		});
+
+		it('should dispatch the correct type and payload', () => {
+			const store = mockStore();
+			const newQuote = { id: 10, quote: 'test quote' };
+
+			store.dispatch(addQuote({ quote: newQuote, bookstoreId: 10 }));
+
+			const actions = store.getActions();
+			const expectedActions = [
+				{
+					type: 'bookstore/addQuote',
+					payload: { quote: newQuote, bookstoreId: 10 },
+				},
+			];
+			expect(actions).toEqual(expectedActions);
+		});
+	});
 });
